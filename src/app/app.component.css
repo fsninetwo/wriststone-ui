@@ -1,1 +1,49 @@
+.wrapper {
+  min-height: 100%;
+  position: relative;
+}
 
+.navigator {
+  margin: 10% 10% 0 10%;
+}
+
+.content {
+  margin: 0 10% 10% 10%;
+  box-sizing: border-box;
+  padding-bottom: 30px;
+}
+
+.top-menu ul {
+  background-color: #333;
+}
+
+.top-menu li {
+float: left;
+  vertical-align: central;
+}
+
+.top-menu li:nth-last-child(-n+2) {
+  float: right;
+  padding: 5px;
+}
+
+.top-menu li a {
+display: block;
+text-align: center;
+padding: 14px 16px;
+}
+
+.top-menu li.active {
+background: #2965e6;
+color: #fff;
+}
+
+.top-menu li a:hover {
+display: inline-block;
+background-color: #2965e6;
+color: #fff;
+}
+
+.top-menu button {
+  height: 32px;
+}

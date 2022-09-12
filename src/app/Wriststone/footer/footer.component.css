@@ -5,20 +5,20 @@
   bottom: 0;
   padding-top: 10px;
   height: 70px;
-  background: #7e7e7e;
+  background: #333;
   color: #dbdbdb;
   font-size: 12px;
 }
 
 h3 {
-font: 16px 'Oswald', sans-serif;
-color: #fff;
-border-bottom: 1px solid #919191;
-margin: 0 0 10px 0;
+  font: 16px 'Oswald', sans-serif;
+  color: #fff;
+  border-bottom: 1px solid #919191;
+  margin: 0 0 10px 0;
 }
 
 p {
-margin: 5px 0;
+  margin: 5px 0;
 }
 
 a {

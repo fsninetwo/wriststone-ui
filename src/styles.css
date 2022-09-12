@@ -1,8 +1,8 @@
 body {
   color: #fff;
   font: 14px Tahoma, sans-serif;
-  background-color: #202020;
-  border-top: 5px solid #002c50;
+  background-color: rgb(32,32,32);
+  background: linear-gradient(4deg, rgba(32,32,32,1) 0%, rgba(2,0,36,1) 21%, rgba(12,80,224,1) 100%);
   margin: 0;
   padding: 0;
   min-width: 720px;

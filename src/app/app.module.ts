@@ -7,6 +7,9 @@ import { HomeComponent } from './Wriststone/home/home.component';
 import { ProfileComponent } from './Wriststone/profile/profile.component';
 import { ProductComponent } from './Wriststone/products/product/product.component';
 import { ProductsComponent } from './Wriststone/products/products.component';
+import { LoginComponent } from './Wriststone/login/login/login.component';
+import { LogoutComponent } from './Wriststone/login/logout/logout.component';
+import { SignupComponent } from './Wriststone/login/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { ProductsComponent } from './Wriststone/products/products.component';
     HomeComponent,
     ProfileComponent,
     ProductComponent,
-    ProductsComponent
+    ProductsComponent,
+    LoginComponent,
+    LogoutComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

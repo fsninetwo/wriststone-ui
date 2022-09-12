@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UserRoutingModule } from './user-routing.module';
 
 import { UserComponent } from './user.component';
+import { UserHeaderComponent } from './user-header/user-header.component';
 
 @NgModule({
   declarations: [
-    UserComponent
+    UserComponent,
+    UserHeaderComponent
   ],
   imports: [
      UserRoutingModule,

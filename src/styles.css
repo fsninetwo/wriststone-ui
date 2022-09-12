@@ -3,6 +3,7 @@ body {
   font: 14px Tahoma, sans-serif;
   background-color: rgb(32,32,32);
   background: linear-gradient(4deg, rgba(32,32,32,1) 0%, rgba(2,0,36,1) 21%, rgba(12,80,224,1) 100%);
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
   min-width: 720px;
@@ -23,7 +24,7 @@ ul {
 }
 
 p {
-margin: 20px 0;
+  margin: 20px 0;
 }
 
 h2 {

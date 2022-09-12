@@ -1,1 +1,32 @@
-<router-outlet></router-outlet>
+<div id="wrapper">
+  <div id="navigator">
+      <div class="top">
+          <ul>
+              <li><a routerLink="/">Store</a></li>
+              <li><a routerLink="profile">Profile</a></li>
+              <li><a routerLink="login">Login</a></li>
+              <li><a routerLink="logout">Logout</a></li>
+          </ul>
+      </div>
+  </div>
+  <router-outlet></router-outlet>
+  <div id="footer">
+      <div id="sitemap">
+          <h3>SITEMAP</h3>
+          <ul>
+              <li><a routerLink="">Home</a></li>
+              <li><a routerLink="about">About</a></li>
+              <li><a routerLink="services">Services</a></li>
+              <li><a routerLink="partners">Partners</a></li>
+              <li><a routerLink="support">Support</a></li>
+              <li><a routerLink="contact">Contact</a></li>
+          </ul>
+      </div>
+      <div id="footer-logo">
+          <p>Copyright © 2022</p>
+      </div>
+  </div>
+</div>
+
+
+

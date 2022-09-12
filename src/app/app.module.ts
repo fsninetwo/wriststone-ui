@@ -9,6 +9,7 @@ import { ProductsComponent } from './Wriststone/products/products.component';
 import { LoginComponent } from './Wriststone/login/login/login.component';
 import { LogoutComponent } from './Wriststone/login/logout/logout.component';
 import { SignupComponent } from './Wriststone/login/signup/signup.component';
+import { FooterComponent } from './Wriststone/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SignupComponent } from './Wriststone/login/signup/signup.component';
     ProductsComponent,
     LoginComponent,
     LogoutComponent,
-    SignupComponent
+    SignupComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

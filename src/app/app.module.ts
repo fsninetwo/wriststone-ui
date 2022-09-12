@@ -8,11 +8,13 @@ import { AuthModule } from './wriststone/auth/auth.module';
 import { StoreComponent } from './Wriststone/store/store.component';
 import { CategoryComponent } from './Wriststone/store/category/category.component';
 import { ItemComponent } from './Wriststone/store/item/item.component';
+import { HeaderComponent } from './wriststone/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
+    HeaderComponent,
     StoreComponent,
     CategoryComponent,
     ItemComponent,

@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { UserRoutingModule } from './user-routing.module';
+
+import { UserComponent } from './user.component';
+
+@NgModule({
+  declarations: [
+    UserComponent
+  ],
+  imports: [
+     UserRoutingModule,
+  ],
+})
+export class UserModule { }

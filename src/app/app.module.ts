@@ -5,25 +5,21 @@ import { AppComponent } from './app.component';
 import { UserModule } from './wriststone/user/user.module';
 import { FooterComponent } from './wriststone/footer/footer.component';
 import { AuthModule } from './wriststone/auth/auth.module';
-import { StoreComponent } from './Wriststone/store/store.component';
-import { CategoryComponent } from './Wriststone/store/category/category.component';
-import { ItemComponent } from './Wriststone/store/item/item.component';
 import { HeaderComponent } from './wriststone/header/header.component';
+import { StoreModule } from './wriststone/store/store.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
-    StoreComponent,
-    CategoryComponent,
-    ItemComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    StoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

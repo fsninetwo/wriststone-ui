@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +8,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
   }
 
   goToSignup() {
-    this.router.navigate(['/auth/', 'signup']);
+    this.navigationService.goToFullRoute('/auth/signup');
   }
-
 }

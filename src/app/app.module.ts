@@ -7,6 +7,7 @@ import { FooterComponent } from './wriststone/footer/footer.component';
 import { AuthModule } from './wriststone/auth/auth.module';
 import { HeaderComponent } from './wriststone/header/header.component';
 import { StoreModule } from './wriststone/store/store.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,11 +16,8 @@ import { StoreModule } from './wriststone/store/store.module';
     HeaderComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    UserModule,
-    AuthModule,
-    StoreModule
+    BrowserModule, AppRoutingModule,
+    UserModule, AuthModule, StoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

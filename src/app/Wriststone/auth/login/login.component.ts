@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -7,13 +8,18 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('f') signupForm: NgForm | undefined;
 
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
   }
 
-  goToSignup() {
+  onSubmit() {
+    console.log(this.signupForm);
+  }
+
+  goToSignup(): void {
     this.navigationService.goToFullRoute('/auth/signup');
   }
 }

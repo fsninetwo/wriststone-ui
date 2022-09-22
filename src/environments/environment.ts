@@ -1,9 +1,23 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { environment as env } from "./environment.prod";
+import { environment as envDev } from "./environment.dev";
+
+const localConfigOverrides = {
+  isMFE: false,
+  deployURL: 'http://localhost:4200/'
+}
 
 export const environment = {
-  production: false
+  ...env,
+
+  production: false,
+  env: 'local_dev',
+  local_dev: {
+    ...envDev.mfe_development,
+    ...localConfigOverrides
+  }
 };
 
 /*

@@ -14,9 +14,12 @@ export class UploadService {
   getUserByCredentials(login: string, password: string) {
     const url = this.apiService.getMsApi({
       api: 'getUserByCredentials',
-      msEndPoint: 'wriststone'
+      msEndPoint: 'wriststone',
+      innerParams {
+        login, password
+      }
     })
 
-    return this.http.get<User>(url)
+    return this.http.post<User>(url);
   }
 }

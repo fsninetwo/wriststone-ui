@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserCredentialsDTO } from 'src/app/shared/models/UserModels';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +13,11 @@ import { NavigationService } from 'src/app/services/navigation.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   warningMessage!: string;
+  subscriptions: Subscription;
 
-  constructor(private navigationService: NavigationService) {}
+  constructor(private navigationService: NavigationService, private authService: AuthService) {
+    this.subscriptions = new Subscription();
+  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup ({
@@ -25,9 +31,27 @@ export class LoginComponent implements OnInit {
       this.warningMessage = "Enter valid data"
     } else {
       this.warningMessage = "";
-      console.log(this.loginForm);
+      this.authorizeUser();
       this.loginForm.reset();
     }
+  }
+
+  authorizeUser(){
+    const userCredentials: UserCredentialsDTO = {
+      login: this.loginForm.value.login,
+      password: this.loginForm.value.password
+    };
+
+    this.subscriptions.add(
+      this.authService.authorize(userCredentials)
+      .subscribe((event) => {
+        const authResponse = event;
+        console.log(authResponse);
+      },
+      (error) => {
+        console.log(error);
+      })
+    )
   }
 
   goToSignup(): void {

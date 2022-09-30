@@ -1,25 +1,23 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { UserAuthResponseDTO, UserCredentialsDTO } from "../shared/models/UserModels";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UploadService {
+export class AuthService {
   constructor(
     private apiService: ApiService,
     private http: HttpClient
   ) {}
 
-  getUserByCredentials(login: string, password: string) {
+  authorize(userCredentials: UserCredentialsDTO) {
     const url = this.apiService.getMsApi({
-      api: 'getUserByCredentials',
-      msEndPoint: 'wriststone',
-      innerParams {
-        login, password
-      }
+      api: 'authorize',
+      msEndPoint: 'wriststone'
     })
 
-    return this.http.post<User>(url);
+    return this.http.post<UserAuthResponseDTO>(url, userCredentials);
   }
 }

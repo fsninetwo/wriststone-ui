@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router, UrlSerializer } from "@angular/router";
-import { join } from "path";
-import { environment } from "src/environments/environment.prod";
+import { environment } from "src/environments/environment";
 import { apiEndPoints, microservicesEndpoints } from "./endpoints-constants";
 
 @Injectable({
@@ -11,14 +10,21 @@ export class ApiService {
 
   private api: Object = {};
 
-  constructor(private router: Router, private serializer: UrlSerializer) {}
+  constructor(private router: Router, private serializer: UrlSerializer) {
+    this.buildEndpointsList();
+  }
 
   getMsApi({api, msEndPoint, innerParams, queryParams }: {api: string, msEndPoint: string, innerParams?: object, queryParams?: object}) {
     if(!innerParams) {
       innerParams = {};
     }
 
-    return `${environment[environment.env].apiEndpoint || ''}/${microservicesEndpoints[msEndPoint]}/${this.api[api](innerParams)}${this.buildQueryParams(queryParams)}`;
+    var apiEndpoint = environment[environment.env].apiEndpoint;
+    var endPoint = microservicesEndpoints[msEndPoint];
+    var apiInnerParams = this.api[api](innerParams);
+    var apiQueryParams = this.buildQueryParams(queryParams);
+
+    return `${apiEndpoint || ''}/${endPoint}/${apiInnerParams}${apiQueryParams}`;
   }
 
   buildQueryParams(params: any) {
@@ -30,7 +36,7 @@ export class ApiService {
   }
 
   private buildEndpointsList() {
-    this.api[apiEndPoints.users.getUserByCredentials] = this.getTemplateFn``;
+    this.api[apiEndPoints.users.authorize] = this.getTemplateFn`/User/Authorize`;
   }
 
   private getTemplateFn(strings, ...keys) {

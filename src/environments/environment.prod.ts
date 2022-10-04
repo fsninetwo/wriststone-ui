@@ -4,7 +4,7 @@ export const environment = {
 
   mfe_development: {
     isMFE: true,
-    apiEndpoint: 'https://localhost:44300/',
+    apiEndpoint: 'proxy/',
     deployURL: 'http://localhost:4200/'
   }
 };

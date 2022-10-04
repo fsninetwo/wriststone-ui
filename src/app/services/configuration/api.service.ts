@@ -24,7 +24,9 @@ export class ApiService {
     var apiInnerParams = this.api[api](innerParams);
     var apiQueryParams = this.buildQueryParams(queryParams);
 
-    return `${apiEndpoint || ''}/${endPoint}/${apiInnerParams}${apiQueryParams}`;
+    var endpoint = `${apiEndpoint || ''}${endPoint}${apiInnerParams}${apiQueryParams}`
+
+    return endpoint;
   }
 
   buildQueryParams(params: any) {

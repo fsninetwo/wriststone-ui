@@ -46,7 +46,13 @@ export class LoginComponent implements OnInit {
       this.authService.authorize(userCredentials)
       .subscribe((event) => {
         const authResponse = event;
-        console.log(authResponse);
+        if(authResponse.isAuthSuccessful) {
+          const token = event.token;
+          localStorage.setItem('token', token);
+          this.navigationService.goToFullRoute('/');
+        } else {
+          this.warningMessage = authResponse.errorMessage;
+        }
       },
       (error) => {
         console.log(error);

@@ -4,6 +4,7 @@ export interface UserCredentialsDTO {
 }
 
 export interface UserAuthResponseDTO {
-  isAuthSuccsessfull: boolean;
+  isAuthSuccessful: boolean;
+  errorMessage: string;
   token: string;
 }

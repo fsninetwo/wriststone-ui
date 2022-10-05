@@ -3,6 +3,7 @@ export const microservicesEndpoints = {
 }
 export const apiEndPoints = {
   users: {
-    authorize: 'authorize'
+    authorize: 'authorize',
+    register: 'register'
   }
 }

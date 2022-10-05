@@ -8,6 +8,7 @@ import { FooterComponent } from './wriststone/footer/footer.component';
 import { AuthModule } from './wriststone/auth/auth.module';
 import { HeaderComponent } from './wriststone/header/header.component';
 import { StoreModule } from './wriststone/store/store.module';
+import { AuthGuard } from './services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,9 @@ import { StoreModule } from './wriststone/store/store.module';
   imports: [
     BrowserModule, AppRoutingModule,
     UserModule, AuthModule,
-    StoreModule, HttpClientModule
+    StoreModule, HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

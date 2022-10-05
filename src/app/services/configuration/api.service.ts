@@ -39,6 +39,7 @@ export class ApiService {
 
   private buildEndpointsList() {
     this.api[apiEndPoints.users.authorize] = this.getTemplateFn`/User/Authorize`;
+    this.api[apiEndPoints.users.register] = this.getTemplateFn`/User/Register`;
   }
 
   private getTemplateFn(strings, ...keys) {

@@ -37,9 +37,11 @@ export class LoginComponent implements OnInit {
   }
 
   authorizeUser(){
+    const loginData = this.loginForm.value;
+
     const userCredentials: UserCredentialsDTO = {
-      login: this.loginForm.value.login,
-      password: this.loginForm.value.password
+      login: loginData.login,
+      password: loginData.password
     };
 
     this.subscriptions.add(

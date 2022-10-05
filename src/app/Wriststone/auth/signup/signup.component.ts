@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserCredentialsDTO, UserGroup, UserRegisterDTO } from 'src/app/shared/models/UserModels';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +18,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription;
 
-  constructor(private navigationService: NavigationService, private authService: AuthService) {
+  constructor(private navigationService: NavigationService,
+    private authService: AuthService) {
     this.subscriptions = new Subscription();
   }
 
@@ -38,15 +41,34 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.warningMessage = "Enter valid data"
     } else {
       this.warningMessage = "";
-      console.log(this.signupForm);
-      this.signupForm.reset();
+      this.registerUser();
     }
+  }
+
+  registerUser(){
+    const signupData = this.signupForm.value;
+    const userRegister: UserRegisterDTO = {
+      login: signupData.login,
+      email: signupData.email,
+      password: signupData.password,
+      fullName: signupData.fullName,
+      created: new Date(),
+      userGroup: UserGroup.User
+    };
+
+    this.subscriptions.add(
+      this.authService.register(userRegister)
+      .subscribe((event) => {
+        this.navigationService.goToFullRoute('/auth/login');
+        this.signupForm.reset();
+      },
+      (error) => {
+        console.log(error);
+      })
+    )
   }
 
   goToLogin() {
     this.navigationService.goToFullRoute('/auth/login');
   }
-
-
-
 }

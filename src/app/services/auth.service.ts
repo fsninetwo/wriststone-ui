@@ -1,19 +1,23 @@
 import { HttpClient } from "@angular/common/http";
+import { stripGeneratedFileSuffix } from "@angular/compiler/src/aot/util";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { UserAuthResponseDTO, UserCredentialsDTO, UserRegisterDTO } from "../shared/models/UserModels";
+import { Subject } from "rxjs";
+import { tokenConstants } from "../shared/models/token-constants";
+import { User, UserAuthResponseDTO, UserCredentialsDTO, UserRegisterDTO } from "../shared/models/UserModels";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  jwtHelper: JwtHelperService = new JwtHelperService();
-
   constructor(
     private apiService: ApiService,
     private http: HttpClient
   ) {}
+
+  jwtHelper: JwtHelperService = new JwtHelperService();
+  user = new Subject<User>();
 
   register(userCredentials: UserRegisterDTO) {
     const url = this.apiService.getMsApi({
@@ -33,13 +37,45 @@ export class AuthService {
     return this.http.post<UserAuthResponseDTO>(url, userCredentials);
   }
 
-  isAuthorized() {
-    const token = localStorage.getItem('token');
+  logout() {
+    this.removeUser();
+  }
 
-    if(token && !this.jwtHelper.isTokenExpired(token)) {
-        console.log(this.jwtHelper.decodeToken(token));
+  isAuthorized() {
+    const data = localStorage.getItem('userData');
+    if(!data) {
+      this.user.next(undefined);
+      return false;
     }
 
-    return token && !this.jwtHelper.isTokenExpired(token);
+    const user = JSON.parse(data);
+    if(this.jwtHelper.isTokenExpired(user.token)){
+      this.user.next(undefined);
+      return false;
+    }
+
+    return true;
+
+  }
+
+  setUser(token: string) {
+    if(token) {
+      const data = this.jwtHelper.decodeToken(token);
+
+      const id = data[tokenConstants.id].toString();
+      const name = data[tokenConstants.name].toString();
+      const email = data[tokenConstants.email].toString();
+      const role = data[tokenConstants.role].toString();
+
+      const user = new User (id, name, email, role, token);
+
+      localStorage.setItem('userData', JSON.stringify(user));
+      this.user.next(user);
+    }
+  }
+
+  removeUser() {
+    localStorage.removeItem('userData');
+    this.user.next(undefined);
   }
 }

@@ -5,6 +5,7 @@ export const microservicesEndpoints = {
 export const apiEndPoints = {
   users: {
     authorize: 'authorize',
-    register: 'register'
+    register: 'register',
+    getUser: 'getUser',
   }
 }

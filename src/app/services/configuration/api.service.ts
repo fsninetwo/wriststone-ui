@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Router, UrlSerializer } from "@angular/router";
-import { nonAuthorizationEndpoints } from "src/app/shared/models/auth-endpoints";
 import { environment } from "src/environments/environment";
 import { apiEndPoints, microservicesEndpoints } from "./endpoints-constants";
 
@@ -41,6 +40,8 @@ export class ApiService {
   private buildEndpointsList() {
     this.api[apiEndPoints.users.authorize] = this.getTemplateFn`/User/Authorize`;
     this.api[apiEndPoints.users.register] = this.getTemplateFn`/User/Register`;
+
+    this.api[apiEndPoints.users.getUser] = this.getTemplateFn`/User/GetUser/${'userId'}`;
   }
 
   private getTemplateFn(strings, ...keys) {

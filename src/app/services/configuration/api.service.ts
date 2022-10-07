@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router, UrlSerializer } from "@angular/router";
+import { nonAuthorizationEndpoints } from "src/app/shared/models/auth-endpoints";
 import { environment } from "src/environments/environment";
 import { apiEndPoints, microservicesEndpoints } from "./endpoints-constants";
 

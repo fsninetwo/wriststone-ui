@@ -3,9 +3,9 @@ import { stripGeneratedFileSuffix } from "@angular/compiler/src/aot/util";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { tokenConstants } from "../shared/models/token-constants";
-import { User, UserAuthResponseDTO, UserCredentialsDTO, UserRegisterDTO } from "../shared/models/UserModels";
-import { ApiService } from "./configuration/api.service";
+import { tokenConstants } from "../../shared/models/token-constants";
+import { User, UserAuthResponseDTO, UserCredentialsDTO, UserRegisterDTO } from "../../shared/models/UserModels";
+import { ApiService } from "../configuration/api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class AuthService {
     const url = this.apiService.getMsApi({
       api: 'register',
       msEndPoint: 'wriststone'
-    })
+    });
 
     return this.http.post(url, userCredentials);
   }
@@ -37,7 +37,7 @@ export class AuthService {
     const url = this.apiService.getMsApi({
       api: 'authorize',
       msEndPoint: 'wriststone'
-    })
+    });
 
     return this.http.post<UserAuthResponseDTO>(url, userCredentials);
   }

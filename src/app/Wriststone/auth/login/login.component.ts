@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.authService.authorize(userCredentials)
       .subscribe((authResponse) => {
         if(authResponse.isAuthSuccessful) {
-          this.authService.setUser(authResponse.token);
+          this.authService.setCurrentUser(authResponse.token);
           this.navigationService.goToFullRoute('/');
         } else {
           this.warningMessage = authResponse.errorMessage;

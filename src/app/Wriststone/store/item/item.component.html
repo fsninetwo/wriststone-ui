@@ -1,0 +1,54 @@
+<div class="product">
+  <h2>Name</h2>
+  <div class="product_info">
+  </div>
+  <div class="product_creditals">
+      <ul>
+          <li>Description</li>
+          <li>Publisher </li>
+          <li>Developer </li>
+          <li>Rate </li>
+                  <li>Price</li>
+                  <li>Free</li>
+              <li>This product is not avaliable in your region.</li>
+      </ul>
+  </div>
+</div>
+  <div class="buy">
+                  <button type="button" onclick="window.location='/Store/Cart/@Model.Product.Product.Id'">Add to cart</button>
+                  <form method="post" action="/Cart/FreeProduct">
+                      <input type="hidden" name="id" value="@Model.Product.Product.Id">
+                      <input type="submit" value="Buy for free" />
+                  </form>
+              <strong>This product is already bought!</strong>
+          <strong>This product is not avaliable in your region.</strong>
+  </div>
+  <form class="rate" method="post" action="/Store/Rate">
+      <h2>Rate this product.</h2>
+      <div class="profile">
+          <a href="Login">@Model.Account.Login</a>
+      </div>
+      <div class="rank">
+          <input type="hidden" name="product" value="@Model.Product.Product.Id">
+          <p>
+              <select name="rank">
+                      <option value="@i">@i</option>
+              </select>
+          </p>
+          <p> <textarea name="comment" cols="70" rows="5" required></textarea> </p>
+          <p> <input type="submit" value="Rate" /> </p>
+      </div>
+  </form>
+  <div class="ratings">
+      <h2>Ratings</h2>
+          <div class="profile">
+              <a>Login</a>
+          </div>
+          <div class="context">
+              <ul>
+                  <li>Rate</li>
+                  <li>Message</li>
+              </ul>
+          </div>
+  </div>
+  <button type="button" onclick="">See all ratings</button>

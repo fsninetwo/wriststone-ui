@@ -1,0 +1,30 @@
+<div class="log">
+  <h1>Sign Up</h1>
+  <p>Please fill in this form to create an account.</p>
+  <form [formGroup]="signupForm" (ngSubmit)="(onSubmit())">
+      <input
+        type="text"
+        placeholder="Enter login"
+        name="login"
+        formControlName="login">
+      <input
+        type="text"
+        placeholder="Enter email"
+        name="email"
+        formControlName="email">
+      <input
+        type="password"
+        placeholder="Enter password"
+        name="password"
+        formControlName="password">
+      <input
+        type="text"
+        placeholder="Enter fullname"
+        name="fullname">
+      <span *ngIf="warningMessage">
+        {{ warningMessage }}
+      </span>
+      <button type="submit">Sign Up</button>
+  </form>
+  <button (click)="goToLogin()">Login</button>
+</div>

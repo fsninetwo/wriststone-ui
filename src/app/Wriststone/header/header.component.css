@@ -1,0 +1,33 @@
+.top-menu ul {
+  background-color: #333;
+}
+
+.top-menu li {
+float: left;
+  vertical-align: central;
+}
+
+.top-menu li:nth-last-child(-n+1) {
+  float: right;
+}
+
+.top-menu li a {
+  display: block;
+  text-align: center;
+  padding: 10px 15px;
+}
+
+.top-menu li.active {
+  background: #2965e6;
+  color: #fff;
+}
+
+.top-menu li a:hover {
+display: inline-block;
+background-color: #2965e6;
+color: #fff;
+}
+
+.top-menu button {
+  height: 32px;
+}

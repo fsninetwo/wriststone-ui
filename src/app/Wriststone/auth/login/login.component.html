@@ -1,0 +1,22 @@
+<div class="log">
+  <h1>Login</h1>
+  <p>Please fill this form to enter account.</p>
+  <form [formGroup]="loginForm" (ngSubmit)="(onSubmit())">
+      <input
+        type="text"
+        placeholder="Login or email"
+        name="login"
+        formControlName="login">
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        formControlName="password">
+      <span *ngIf="warningMessage">
+        {{ warningMessage }}
+      </span>
+      <button type="submit">Login</button>
+  </form>
+  <button (click)="goToSignup()">Sign Up</button>
+</div>
+

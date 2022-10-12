@@ -1,0 +1,38 @@
+.profile_user {
+  margin-top: 10px;
+  background-color: #333;
+}
+
+.profile_user h2 {
+  padding: 0;
+}
+
+.profile_creditals {
+  padding: 10px 10px;
+  width: 160px;
+  margin: 0;
+  display: inline-block;
+  min-height: 300px;
+}
+
+.profile_creditals img {
+  height: 160px;
+  width: 160px;
+}
+
+.profile_info {
+  padding: 10px 0px;
+  display: inline-block;
+  width: calc(100% - 190px);
+  vertical-align: top;
+  min-height: 300px;
+}
+
+.profile_info ul {
+  margin: 10px 0 0 0;
+  background-color: #333;
+}
+
+.profile_info li {
+  padding: 10px 0px;
+}

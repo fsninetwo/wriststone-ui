@@ -36,8 +36,4 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-
-  goToEdit(){
-    this.navigationService.goToFullRoute(`/user/${this.userId}/edit`);
-  }
 }

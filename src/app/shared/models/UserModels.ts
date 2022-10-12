@@ -17,7 +17,6 @@ export interface UserDTO {
 export interface UserEditDTO {
   id: number;
   email: string,
-  password: string,
   fullName: string
 }
 

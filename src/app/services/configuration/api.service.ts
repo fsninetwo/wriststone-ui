@@ -38,8 +38,8 @@ export class ApiService {
   }
 
   private buildEndpointsList() {
-    this.api[apiEndPoints.users.authorize] = this.getTemplateFn`/User/Authorize`;
-    this.api[apiEndPoints.users.register] = this.getTemplateFn`/User/Register`;
+    this.api[apiEndPoints.users.authorize] = this.getTemplateFn`/Auth/Authorize`;
+    this.api[apiEndPoints.users.register] = this.getTemplateFn`/Auth/Register`;
 
     this.api[apiEndPoints.users.getUser] = this.getTemplateFn`/User/GetUser/${'userId'}`;
     this.api[apiEndPoints.users.editUser] = this.getTemplateFn`/User/EditUser`;

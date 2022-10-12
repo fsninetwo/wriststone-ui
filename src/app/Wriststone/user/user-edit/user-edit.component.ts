@@ -30,7 +30,6 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
     this.editForm = new FormGroup ({
       'email' : new FormControl(null, [Validators.required, Validators.email]),
-      'password' : new FormControl(null, [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,30}$")]),
       'fullname' : new FormControl(null)
     });
     this.route.params.subscribe(
@@ -39,7 +38,6 @@ export class UserEditComponent implements OnInit {
           .subscribe(user => {
             this.editForm.setValue({
               email: user.email,
-              password: '',
               fullname: ''
             });
             this.userId = Number(user.id);
@@ -58,16 +56,15 @@ export class UserEditComponent implements OnInit {
       this.warningMessage = "Enter valid data"
     } else {
       this.warningMessage = "";
-      this.registerUser();
+      this.editUser();
     }
   }
 
-  registerUser(){
+  editUser(){
     const signupData = this.editForm.value;
     const userEdit: UserEditDTO = {
       id: this.userId,
       email: signupData.email,
-      password: signupData.password,
       fullName: signupData.fullName,
     };
 

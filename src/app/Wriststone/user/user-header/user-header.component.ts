@@ -14,15 +14,18 @@ export class UserHeaderComponent implements OnInit {
 
   isAuthenticated = false;
   userId!: string;
+  userName!: string;
 
   ngOnInit(): void {
     this.userSub = this.authService.currentUser.subscribe(user => {
       if(user) {
         this.isAuthenticated = true;
         this.userId = user.id;
+        this.userName = user.login;
       } else {
         this.isAuthenticated = false;
         this.userId = '';
+        this.userName = '';
       }
     });
   }

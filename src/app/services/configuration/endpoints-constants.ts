@@ -7,5 +7,6 @@ export const apiEndPoints = {
     authorize: 'authorize',
     register: 'register',
     getUser: 'getUser',
+    editUser: 'editUser',
   }
 }

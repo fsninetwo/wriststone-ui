@@ -8,14 +8,22 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAuthenticated = false;
   private userSub!: Subscription;
 
   constructor(private authService : AuthService) { }
 
+  isAuthenticated = false;
+  userId!: string;
+
   ngOnInit(): void {
     this.userSub = this.authService.currentUser.subscribe(user => {
-      this.isAuthenticated = !!user;
+      if(user) {
+        this.isAuthenticated = true;
+        this.userId = user.id;
+      } else {
+        this.isAuthenticated = false;
+        this.userId = '';
+      }
     });
   }
 

@@ -14,6 +14,13 @@ export interface UserDTO {
   created: Date
 }
 
+export interface UserEditDTO {
+  id: number;
+  email: string,
+  password: string,
+  fullName: string
+}
+
 export interface UserCredentialsDTO {
   login: string;
   password: string;

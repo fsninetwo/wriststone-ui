@@ -42,6 +42,7 @@ export class ApiService {
     this.api[apiEndPoints.users.register] = this.getTemplateFn`/User/Register`;
 
     this.api[apiEndPoints.users.getUser] = this.getTemplateFn`/User/GetUser/${'userId'}`;
+    this.api[apiEndPoints.users.editUser] = this.getTemplateFn`/User/EditUser`;
   }
 
   private getTemplateFn(strings, ...keys) {

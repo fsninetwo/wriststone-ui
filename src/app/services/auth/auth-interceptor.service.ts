@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
-import { nonAuthorizationEndpoints } from "src/app/shared/endoints/auth-endpoints";
+import { nonAuthorizationEndpoints } from "src/app/services/auth/auth-endpoints";
 import { AuthService } from "./auth.service";
 
 @Injectable()

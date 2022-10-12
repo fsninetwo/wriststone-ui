@@ -3,7 +3,7 @@ import { stripGeneratedFileSuffix } from "@angular/compiler/src/aot/util";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { tokenConstants } from "../../shared/endoints/token-constants";
+import { tokenConstants } from "./token-constants";
 import { User, UserAuthResponseDTO, UserCredentialsDTO, UserDTO, UserRegisterDTO } from "../../shared/models/UserModels";
 import { ApiService } from "../configuration/api.service";
 

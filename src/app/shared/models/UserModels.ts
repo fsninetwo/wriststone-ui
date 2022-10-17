@@ -3,7 +3,7 @@ export class User {
     public id: string,
     public login: string,
     public email: string,
-    public userGroup: UserGroup,
+    public userGroup: UserRole,
     public token: string) {}
 }
 
@@ -31,7 +31,7 @@ export interface UserRegisterDTO {
   email: string,
   fullName: string,
   created: Date,
-  userGroup: UserGroup,
+  userRole: string,
 }
 
 export interface UserAuthResponseDTO {
@@ -40,7 +40,7 @@ export interface UserAuthResponseDTO {
   token: string;
 }
 
-export enum UserGroup {
-  Administrator = 1,
-  User
+export enum UserRole {
+  Administrator = "Administrator",
+  User = "User"
 }

@@ -1,4 +1,5 @@
 export const nonAuthorizationEndpoints = [
   '/Auth/',
-  '/User/GetUser'
+  '/User/GetUser',
+  '/Permissions/GetPermissions'
 ]

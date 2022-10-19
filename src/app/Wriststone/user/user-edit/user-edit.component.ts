@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
-import { UserEditDTO, UserRole, UserRegisterDTO } from 'src/app/shared/models/UserModels';
+import { UserEditDTO, UserRole, UserRegisterDTO } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-user-edit',
@@ -21,7 +21,7 @@ export class UserEditComponent implements OnInit {
 
 
   constructor(private navigationService: NavigationService,
-    private authService: AuthService,
+    private authInfoService: AuthInfoService,
     private userService: UserService,
     private route: ActivatedRoute) {
     this.subscriptions = new Subscription();
@@ -34,7 +34,7 @@ export class UserEditComponent implements OnInit {
     });
     this.route.params.subscribe(
       (params: Params) => {
-        this.userSub = this.authService.currentUser
+        this.userSub = this.authInfoService.currentUser
           .subscribe(user => {
             this.editForm.setValue({
               email: user.email,
@@ -72,7 +72,7 @@ export class UserEditComponent implements OnInit {
       this.userService.editUser(userEdit)
       .subscribe((event) => {
         this.editForm.reset();
-        this.navigationService.goToFullRoute(`/user/${this.userId}`);
+        this.navigationService.goToFullRoute(`/user/${this.userId}/detail`);
       },
       (error) => {
         console.log(error);

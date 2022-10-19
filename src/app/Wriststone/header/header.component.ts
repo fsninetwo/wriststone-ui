@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +11,13 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
 
-  constructor(private authService : AuthService) { }
+  constructor(private authInfoService : AuthInfoService) { }
 
   isAuthenticated = false;
   userId!: string;
 
   ngOnInit(): void {
-    this.userSub = this.authService.currentUser.subscribe(user => {
+    this.userSub = this.authInfoService.currentUser.subscribe(user => {
       if(user) {
         this.isAuthenticated = true;
         this.userId = user.id;
@@ -32,6 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.authInfoService.logout();
   }
 }

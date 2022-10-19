@@ -2,12 +2,13 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
-import { nonAuthorizationEndpoints } from "src/app/services/auth/auth-endpoints";
-import { AuthService } from "./auth.service";
+import { nonAuthorizationEndpoints } from "src/app/services/auth/models/auth-endpoints";
+import { AuthService } from "../auth.service";
+import { AuthInfoService } from "./auth-info.service";
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor{
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthInfoService){}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("Auth Interceptor");
     const user = this.authService.getCurrentUser();

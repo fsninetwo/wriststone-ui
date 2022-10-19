@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
-import { UserDTO } from 'src/app/shared/models/UserModels';
+import { UserDTO } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-user-detail',

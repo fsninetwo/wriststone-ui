@@ -1,16 +1,17 @@
 import { HttpClient } from "@angular/common/http";
-import { stripGeneratedFileSuffix } from "@angular/compiler/src/aot/util";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { tokenConstants } from "./token-constants";
-import { User, UserAuthResponseDTO, UserCredentialsDTO, UserDTO, UserRegisterDTO } from "../../shared/models/UserModels";
+import { BehaviorSubject, Observable } from "rxjs";
+import { User } from "src/app/shared/models/user-models";
 import { ApiService } from "../configuration/api.service";
+import { tokenConstants } from "./models/token-constants";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
+@Injectable(
+  { providedIn: 'root' }
+)
+
+export class AuthInfoService {
+
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   private currentUserSubject: BehaviorSubject<User>;
@@ -22,24 +23,6 @@ export class AuthService {
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('userData')!));
     this.currentUser = this.currentUserSubject.asObservable();
-  }
-
-  register(userCredentials: UserRegisterDTO) {
-    const url = this.apiService.getMsApi({
-      api: 'register',
-      msEndPoint: 'wriststone'
-    });
-
-    return this.http.post(url, userCredentials);
-  }
-
-  authorize(userCredentials: UserCredentialsDTO) {
-    const url = this.apiService.getMsApi({
-      api: 'authorize',
-      msEndPoint: 'wriststone'
-    });
-
-    return this.http.post<UserAuthResponseDTO>(url, userCredentials);
   }
 
   logout() {

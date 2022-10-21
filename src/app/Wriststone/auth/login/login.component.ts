@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserCredentialsDTO } from 'src/app/shared/models/UserModels';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserCredentialsDTO } from 'src/app/shared/models/user-models';
+import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,10 @@ export class LoginComponent implements OnInit {
   warningMessage!: string;
   subscriptions: Subscription;
 
-  constructor(private navigationService: NavigationService, private authService: AuthService) {
+  constructor(
+    private navigationService: NavigationService,
+    private authService: AuthService,
+    private authInfoService: AuthInfoService) {
     this.subscriptions = new Subscription();
   }
 
@@ -48,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.authService.authorize(userCredentials)
       .subscribe((authResponse) => {
         if(authResponse.isAuthSuccessful) {
-          this.authService.setCurrentUser(authResponse.token);
+          this.authInfoService.setCurrentUser(authResponse.token);
           this.navigationService.goToFullRoute('/');
         } else {
           this.warningMessage = authResponse.errorMessage;

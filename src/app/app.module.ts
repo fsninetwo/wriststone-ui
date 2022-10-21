@@ -9,7 +9,7 @@ import { AuthModule } from './wriststone/auth/auth.module';
 import { HeaderComponent } from './wriststone/header/header.component';
 import { StoreModule } from './wriststone/store/store.module';
 import { AuthGuard } from './services/auth/auth.guard';
-import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { AuthInterceptorService } from './services/interceptors/auth-interceptor.service';
 
 @NgModule({
   declarations: [

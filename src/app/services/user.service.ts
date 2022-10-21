@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserDTO, UserEditDTO } from "../shared/models/UserModels";
+import { UserDTO, UserEditDTO } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({

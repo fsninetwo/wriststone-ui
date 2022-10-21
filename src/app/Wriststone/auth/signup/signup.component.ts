@@ -3,9 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserCredentialsDTO, UserGroup, UserRegisterDTO } from 'src/app/shared/models/UserModels';
-import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserRole, UserRegisterDTO } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +17,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription;
 
-  constructor(private navigationService: NavigationService,
+  constructor(
+    private navigationService: NavigationService,
     private authService: AuthService) {
     this.subscriptions = new Subscription();
   }
@@ -53,7 +53,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       password: signupData.password,
       fullName: signupData.fullName,
       created: new Date(),
-      userGroup: UserGroup.User
+      userRole: UserRole.User
     };
 
     this.subscriptions.add(

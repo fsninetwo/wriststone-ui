@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, UrlSerializer } from "@angular/router";
 import { environment } from "src/environments/environment";
-import { apiEndPoints, microservicesEndpoints } from "./endpoints-constants";
+import { apiEndPoints, microservicesEndpoints } from "../../shared/models/constatnts/endpoints-constants";
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +38,11 @@ export class ApiService {
   }
 
   private buildEndpointsList() {
-    this.api[apiEndPoints.users.authorize] = this.getTemplateFn`/Auth/Authorize`;
-    this.api[apiEndPoints.users.register] = this.getTemplateFn`/Auth/Register`;
+    this.api[apiEndPoints.auth.authorize] = this.getTemplateFn`/Auth/Authorize`;
+    this.api[apiEndPoints.auth.register] = this.getTemplateFn`/Auth/Register`;
+
+    this.api[apiEndPoints.permissions.getDefaultPermissions] = this.getTemplateFn`/Permissions/GetDefaultPermissions`;
+    this.api[apiEndPoints.permissions.getPermissions] = this.getTemplateFn`/Permissions/GetPermissions`;
 
     this.api[apiEndPoints.users.getUser] = this.getTemplateFn`/User/GetUser/${'userId'}`;
     this.api[apiEndPoints.users.editUser] = this.getTemplateFn`/User/EditUser`;

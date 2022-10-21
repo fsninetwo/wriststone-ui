@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, UrlSerializer } from "@angular/router";
 import { environment } from "src/environments/environment";
-import { apiEndPoints, microservicesEndpoints } from "./endpoints-constants";
+import { apiEndPoints, microservicesEndpoints } from "../../shared/models/constatnts/endpoints-constants";
 
 @Injectable({
   providedIn: 'root'

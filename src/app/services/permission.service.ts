@@ -20,7 +20,7 @@ export class PermissionService {
       msEndPoint: 'wriststone'
     });
 
-    return this.http.get<PermissionDTO>(url);
+    return this.http.get<Array<PermissionDTO>>(url);
   }
 
   getPermissions() {
@@ -29,6 +29,6 @@ export class PermissionService {
       msEndPoint: 'wriststone'
     });
 
-    return this.http.get<PermissionDTO>(url);
+    return this.http.get<Array<PermissionDTO>>(url);
   }
 }

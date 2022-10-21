@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
 import { nonAuthorizationEndpoints } from "src/app/services/auth/models/auth-endpoints";
 import { AuthService } from "../auth.service";
-import { AuthInfoService } from "./auth-info.service";
+import { AuthInfoService } from "../auth/auth-info.service";
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor{

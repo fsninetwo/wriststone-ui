@@ -1,4 +1,4 @@
-export interface PermissionDTO {
+export interface Permission {
   permission: string,
   accessLevel: string
 }

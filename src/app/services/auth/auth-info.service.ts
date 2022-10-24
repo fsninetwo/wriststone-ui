@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { BehaviorSubject, Observable } from "rxjs";
-import { PermissionDTO } from "src/app/shared/models/permisson-models";
+import { Permission } from "src/app/shared/models/permisson-models";
 import { User } from "src/app/shared/models/user-models";
 import { ApiService } from "../configuration/api.service";
 import { PermissionService } from "../permission.service";
@@ -16,15 +16,15 @@ export class AuthInfoService {
 
   jwtHelper: JwtHelperService = new JwtHelperService();
 
-  private permissions: Array<PermissionDTO> = [];
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
+  private currentPermissions: Array<Permission>;
+
   constructor(
-    private permissionService: PermissionService,
-    private apiService: ApiService,
-    private http: HttpClient
+    private permissionService: PermissionService
   ) {
+    this.currentPermissions = new Array<Permission>(JSON.parse(localStorage.getItem('permissions')!));
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('userData')!));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -67,16 +67,21 @@ export class AuthInfoService {
 
       localStorage.setItem('userData', JSON.stringify(user));
       this.currentUserSubject.next(user);
+      this.initializePermissions();
     }
   }
 
   removeCurrentUser() {
     localStorage.removeItem('userData');
     this.currentUserSubject.next(null!);
+    this.updatePermissions();
   }
 
   hasPermission(permissionName: string, accessLavel: string){
-    const permission = this.permissions.find(
+    if(!this.currentPermissions) {
+      this.initializePermissions();
+    }
+    const permission = this.currentPermissions.find(
       x => x.permission.toLowerCase() === permissionName.toLowerCase()
       && x.accessLevel.toLowerCase() === accessLavel.toLowerCase()
     )
@@ -86,21 +91,37 @@ export class AuthInfoService {
 
   initializePermissions() {
     if(this.getCurrentUser()){
-      this.permissionService.getPermissions()
-      .subscribe((event) => {
-        this.permissions = event;
-      },
-      (error) => {
-        console.log(error);
-      });
+      this.getPermissions();
     } else {
-      this.permissionService.getDefaultPermissions()
-      .subscribe((event) => {
-        this.permissions = event;
+      this.getDefaultPermissions();
+    }
+  }
+
+  private updatePermissions() {
+    localStorage.removeItem('permissions');
+    this.currentPermissions = null!;
+    this.initializePermissions();
+  }
+
+  private getPermissions(){
+    this.permissionService.getPermissions()
+      .subscribe((permissions) => {
+        localStorage.setItem('permissions', JSON.stringify(permissions));
+        this.currentPermissions = permissions;
       },
       (error) => {
         console.log(error);
       });
-    }
+  }
+
+  private getDefaultPermissions(){
+    this.permissionService.getDefaultPermissions()
+      .subscribe((permissions) => {
+        localStorage.setItem('permissions', JSON.stringify(permissions));
+        this.currentPermissions = permissions;
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 }

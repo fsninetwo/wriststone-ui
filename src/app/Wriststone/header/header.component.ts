@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
+import { Permission } from 'src/app/shared/models/permisson-models';
 
 @Component({
   selector: 'app-header',
@@ -17,19 +18,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userId!: string;
 
   ngOnInit(): void {
+    this.authInfoService.initializePermissions();
     this.userSub = this.authInfoService.currentUser.subscribe(user => {
-      if(user) {
-        this.isAuthenticated = true;
-        this.userId = user.id;
-      } else {
-        this.isAuthenticated = false;
-        this.userId = '';
-      }
+      this.isAuthenticated = !!user;
+      this.userId = !!user ? user.id : '';
     });
   }
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+  }
+
+  hasPermission(page: string, access: string){
+    if(this.isAuthenticated) {
+      return this.authInfoService.hasPermission(page, access);
+    }
+    return false;
   }
 
   logout(): void {

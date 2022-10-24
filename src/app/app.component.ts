@@ -9,11 +9,6 @@ import { AuthInfoService } from './services/auth/auth-info.service';
 export class AppComponent implements OnInit {
   title = 'wriststone-ui';
 
-  constructor(
-    private authInfoService: AuthInfoService){
-  }
-
   ngOnInit(): void {
-    this.authInfoService.initializePermissions();
   }
 }

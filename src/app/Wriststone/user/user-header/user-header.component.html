@@ -1,6 +1,6 @@
 <div class="profile-menu">
   <ul>
-    <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/user/{{userId}}/detail">{{ userName }}</a></li>
-    <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="/user/{{userId}}/edit">Edit</a></li>
+    <li routerLinkActive="active" *ngIf="hasPermission('User', 'Read')"><a routerLink="/user/{{userId}}/detail">{{ userName }}</a></li>
+    <li routerLinkActive="active" *ngIf="hasPermission('User', 'Write')"><a routerLink="/user/{{userId}}/edit">Edit</a></li>
   </ul>
 </div>

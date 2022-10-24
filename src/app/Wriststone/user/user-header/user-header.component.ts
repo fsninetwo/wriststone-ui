@@ -10,7 +10,6 @@ import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 })
 export class UserHeaderComponent implements OnInit {
   private userSub!: Subscription;
-
   constructor(private authInfoService : AuthInfoService) { }
 
   isAuthenticated = false;
@@ -19,16 +18,16 @@ export class UserHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSub = this.authInfoService.currentUser.subscribe(user => {
-      if(user) {
-        this.isAuthenticated = true;
-        this.userId = user.id;
-        this.userName = user.login;
-      } else {
-        this.isAuthenticated = false;
-        this.userId = '';
-        this.userName = '';
-      }
+      this.isAuthenticated = !!user;
+      this.userId = !!user ? user.id : '';
+      this.userName = !!user ? user.login : '';
     });
   }
 
+  hasPermission(page: string, access: string){
+    if(this.isAuthenticated) {
+      return this.authInfoService.hasPermission(page, access);
+    }
+    return false;
+  }
 }

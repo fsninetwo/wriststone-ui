@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { PermissionDTO } from "../shared/models/permisson-models";
+import { Permission } from "../shared/models/permisson-models";
 import { UserRegisterDTO, UserCredentialsDTO, UserAuthResponseDTO } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
@@ -20,7 +20,7 @@ export class PermissionService {
       msEndPoint: 'wriststone'
     });
 
-    return this.http.get<Array<PermissionDTO>>(url);
+    return this.http.get<Array<Permission>>(url);
   }
 
   getPermissions() {
@@ -29,6 +29,6 @@ export class PermissionService {
       msEndPoint: 'wriststone'
     });
 
-    return this.http.get<Array<PermissionDTO>>(url);
+    return this.http.get<Array<Permission>>(url);
   }
 }

@@ -7,6 +7,13 @@ export class User {
     public token: string) {}
 }
 
+export interface UsersManagementDTO {
+  id: string,
+  login: string,
+  email: string,
+  userRole: UserRole,
+}
+
 export interface UserDTO {
   login: string,
   email: string,

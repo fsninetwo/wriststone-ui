@@ -14,5 +14,9 @@ export const apiEndPoints = {
   users: {
     getUser: 'getUser',
     editUser: 'editUser',
+  },
+  usersManagement: {
+    getAllUsers: 'getAllUsers',
+    editUser: 'editUser',
   }
 }

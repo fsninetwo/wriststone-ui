@@ -10,6 +10,7 @@ import { HeaderComponent } from './wriststone/header/header.component';
 import { StoreModule } from './wriststone/store/store.module';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AuthInterceptorService } from './services/interceptors/auth-interceptor.service';
+import { UsersManagementModule } from './Wriststone/users-management/users-management.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthInterceptorService } from './services/interceptors/auth-interceptor
     BrowserModule, AppRoutingModule,
     UserModule, AuthModule,
     StoreModule, HttpClientModule,
+    UsersManagementModule
   ],
   providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]

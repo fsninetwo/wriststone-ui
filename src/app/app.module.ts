@@ -11,12 +11,14 @@ import { StoreModule } from './wriststone/store/store.module';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AuthInterceptorService } from './services/interceptors/auth-interceptor.service';
 import { UsersManagementModule } from './Wriststone/users-management/users-management.module';
+import { InputTextComponent } from './shared/base-input-text/base-input-text.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
+    InputTextComponent,
   ],
   imports: [
     BrowserModule, AppRoutingModule,

@@ -1,8 +1,22 @@
-<ng-container *ngFor="let user of users">
-  <p>
-    <span>{{user.id}} </span>
-    <span>{{user.login}} </span>
-    <span>{{user.email}} </span>
-    <span>{{user.userRole}} </span>
-  </p>
-</ng-container>
+<div class="search">
+  <input type="text" placeholder="Search" name="search" (input)="search($event)">
+</div>
+
+<table class="list">
+  <thead class="list">
+    <tr>
+      <th>Id</th>
+      <th>Login</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th>{{user.id}}</th>
+      <th>{{user.login}}</th>
+      <th>{{user.email}}</th>
+      <th>{{user.userRole}}</th>
+    </tr>
+  </tbody>
+</table>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './services/auth/auth.guard';
 
 const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./wriststone/auth/auth.module').then(m => m.AuthModule) },

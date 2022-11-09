@@ -31,9 +31,6 @@ h2 {
   background: #333;
   font-weight: 300;
   padding: 0 10px;
-  border-bottom-style: solid;
-  border-bottom-color: #fff;
-  border-bottom-width: 1px;
 }
 
 a {
@@ -47,53 +44,14 @@ a {
   padding: 5px;
 }
 
-.search form [type="text"] {
+.search [type="text"] {
+  width: 100%;
   background-color: #f3f3f3;
-  border: 0px solid #e7e7e7;
-  height: 32px;
-  width: calc(100% - 45px);
-  padding: 0 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.search form [type="submit"]{
-  display: inline-block;
-  height: 32px;
-}
-
-.list a {
-
-}
-
-.list h2 {
-  margin: 10px 0 0 0;
-}
-
-.list ul {
-  background-color: #333;
-}
-
-.list li {
-padding: 14px 16px;
-}
-
-.list li a {
-
-}
-
-.list li a:hover {
-display: inline-block;
-background-color: #2965e6;
-color: #fff;
-}
-
-.list button {
+  border: 1px solid #e7e7e7;
   height: 30px;
-}
-
-.list form.cart {
-  float: right;
+  padding: 10px 10px;
+  vertical-align: top;
+  box-sizing: border-box;
 }
 
 .orders {

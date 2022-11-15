@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/services/auth/auth.guard';
 import { AuthConstant } from 'src/app/shared/models/constatnts/page-constands';
 import { UsersManagementComponent } from './users-management.component';
+import { UsersManangmentEditComponent } from './users-manangment-edit/users-manangment-edit.component';
+import { UsersManangmentListComponent } from './users-manangment-list/users-manangment-list.component';
 
 const routes: Routes = [
   { path: '',
@@ -12,10 +14,11 @@ const routes: Routes = [
       pageName: AuthConstant.user_PageName,
       availableFor: AuthConstant.readAccess,
       permissionName: AuthConstant.usersManagement_PermissionName,
-    }
-    //children: [
-    //  { path: ':id/edit', component: UserEditComponent },
-    //]
+    },
+    children: [
+      { path: 'list', component: UsersManangmentListComponent},
+      { path: ':id/edit', component: UsersManangmentEditComponent},
+    ]
   }
 ];
 

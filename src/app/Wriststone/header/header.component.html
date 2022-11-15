@@ -5,7 +5,7 @@
       <a routerLink="user/{{userId}}/detail">Profile</a>
     </li>
     <li routerLinkActive="active" *ngIf="hasPermission('Users Management', 'Read')">
-      <a routerLink="users">Users</a>
+      <a routerLink="users/list">Users</a>
     </li>
     <li *ngIf="!isAuthenticated"><a routerLink="auth/login" >Login</a></li>
     <li *ngIf="isAuthenticated"><a (click)="logout()">Logout</a></li>

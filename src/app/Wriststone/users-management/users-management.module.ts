@@ -6,11 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersManagementRoutingModule } from './users-management-routing.module';
 import { UsersManagementComponent } from './users-management.component';
 import { SortDirective } from 'src/app/shared/directives/sort.directive';
+import { UsersManangmentListComponent } from './users-manangment-list/users-manangment-list.component';
+import { UsersManangmentEditComponent } from './users-manangment-edit/users-manangment-edit.component';
 
 @NgModule({
   declarations: [
     UsersManagementComponent,
-    SortDirective
+    SortDirective,
+    UsersManangmentListComponent,
+    UsersManangmentEditComponent
   ],
   imports: [
     UsersManagementRoutingModule,

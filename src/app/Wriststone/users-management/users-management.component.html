@@ -3,20 +3,16 @@
 </div>
 
 <table class="list">
-  <thead class="list">
-    <tr>
-      <th>Id</th>
-      <th>Login</th>
-      <th>Email</th>
-      <th>Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <th>{{user.id}}</th>
-      <th>{{user.login}}</th>
-      <th>{{user.email}}</th>
-      <th>{{user.userRole}}</th>
-    </tr>
-  </tbody>
+  <tr>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="id">Id</th>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="login">Login</th>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="email">Email</th>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="userRole">Role</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <th>{{ user.id }}</th>
+    <th>{{ user.login }}</th>
+    <th>{{ user.email }}</th>
+    <th>{{ user.userRole }}</th>
+  </tr>
 </table>

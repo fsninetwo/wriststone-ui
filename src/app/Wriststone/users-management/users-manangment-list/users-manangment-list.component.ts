@@ -32,4 +32,8 @@ export class UsersManangmentListComponent implements OnInit {
         || x.email.includes(text.toLowerCase()) || x.userRole.includes(text.toLowerCase()))
     }
   }
+
+  editUser(id: number){
+    this.navigationService.goToFullRoute(`users/${id}/edit`);
+  }
 }

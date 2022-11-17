@@ -8,9 +8,17 @@ export class User {
 }
 
 export interface UsersManagementDTO {
-  id: string,
+  id: number,
   login: string,
   email: string,
+  userRole: UserRole,
+}
+
+export interface UsersManagementEditDTO {
+  id: number,
+  login: string,
+  email: string,
+  fullname: string,
   userRole: UserRole,
 }
 

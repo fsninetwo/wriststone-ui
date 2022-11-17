@@ -15,6 +15,6 @@
     <th>{{ user.login }}</th>
     <th>{{ user.email }}</th>
     <th>{{ user.userRole }}</th>
-    <th><button>Edit</button></th>
+    <th><button (click)="editUser(user.id)">Edit</button></th>
   </tr>
 </table>

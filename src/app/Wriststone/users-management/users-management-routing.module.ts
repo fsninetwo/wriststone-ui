@@ -16,8 +16,9 @@ const routes: Routes = [
       permissionName: AuthConstant.usersManagement_PermissionName,
     },
     children: [
-      { path: 'list', component: UsersManangmentListComponent},
-      { path: ':id/edit', component: UsersManangmentEditComponent},
+      { path: 'list', component: UsersManangmentListComponent },
+      { path: ':id/edit', component: UsersManangmentEditComponent,
+        data: { pageName: AuthConstant.user_PageName } },
     ]
   }
 ];

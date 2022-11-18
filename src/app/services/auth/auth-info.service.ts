@@ -19,12 +19,12 @@ export class AuthInfoService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private currentPermissions: Array<Permission>;
+  private currentPermissions: Permission[];
 
   constructor(
     private permissionService: PermissionService
   ) {
-    this.currentPermissions = new Array<Permission>(JSON.parse(localStorage.getItem('permissions')!));
+    this.currentPermissions = JSON.parse(localStorage.getItem('permissions')!);
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('userData')!));
     this.currentUser = this.currentUserSubject.asObservable();
   }

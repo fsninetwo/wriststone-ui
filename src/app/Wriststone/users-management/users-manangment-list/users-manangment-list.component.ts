@@ -16,10 +16,7 @@ export class UsersManangmentListComponent implements OnInit {
     private usersManagementService: UsersManagementService) { }
 
   ngOnInit(): void {
-    this.usersManagementService.getAllUsers().subscribe(users => {
-      this.usersSaved = users;
-      this.users = this.usersSaved;
-    })
+    this.updateUsersList();
   }
 
   search(event: any){
@@ -33,7 +30,26 @@ export class UsersManangmentListComponent implements OnInit {
     }
   }
 
-  editUser(id: number){
+  goToEditUser(id: number){
     this.navigationService.goToFullRoute(`users/${id}/edit`);
+  }
+
+  goToAddUser(){
+    this.navigationService.goToFullRoute(`users/add`);
+  }
+
+  removeUser(id: number){
+    this.usersManagementService.removeUser(id)
+      .subscribe(event => {
+        this.updateUsersList();
+      });
+  }
+
+  private updateUsersList(){
+    this.usersManagementService.getAllUsers()
+      .subscribe(users => {
+        this.usersSaved = users;
+        this.users = this.usersSaved;
+      });
   }
 }

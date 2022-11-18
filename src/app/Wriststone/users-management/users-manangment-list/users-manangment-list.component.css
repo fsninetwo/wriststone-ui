@@ -24,4 +24,9 @@ tbody tr:nth-child(odd){
 
 button {
   padding: 5px;
+  margin: 0 1px;
+}
+
+.remove {
+  background-color: rgb(160, 0, 0);
 }

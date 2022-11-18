@@ -1,6 +1,6 @@
 <div class="log">
   <h1>Edit User</h1>
-  <form [formGroup]="editForm" (ngSubmit)="(onSubmit())">
+  <form [formGroup]="addForm" (ngSubmit)="(onSubmit())">
     <input
       type="text"
       placeholder="Enter login"
@@ -12,6 +12,11 @@
       name="email"
       formControlName="email">
     <input
+      type="password"
+      placeholder="Enter password"
+      name="password"
+      formControlName="password">
+    <input
       type="text"
       placeholder="Enter fullname"
       name="fullname"
@@ -22,8 +27,7 @@
     <span *ngIf="warningMessage">
       {{ warningMessage }}
     </span>
-    <button type="submit">Edit</button>
+    <button type="submit">Add</button>
     <button type="button" (click)="cancel()">Cancel</button>
   </form>
 </div>
-

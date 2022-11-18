@@ -8,13 +8,15 @@ import { UsersManagementComponent } from './users-management.component';
 import { SortDirective } from 'src/app/shared/directives/sort.directive';
 import { UsersManangmentListComponent } from './users-manangment-list/users-manangment-list.component';
 import { UsersManangmentEditComponent } from './users-manangment-edit/users-manangment-edit.component';
+import { UsersManangmentAddComponent } from './users-manangment-add/users-manangment-add.component';
 
 @NgModule({
   declarations: [
     UsersManagementComponent,
     SortDirective,
     UsersManangmentListComponent,
-    UsersManangmentEditComponent
+    UsersManangmentEditComponent,
+    UsersManangmentAddComponent
   ],
   imports: [
     UsersManagementRoutingModule,

@@ -19,7 +19,8 @@ export const apiEndPoints = {
     getAllUsers: 'getAllUsers',
     getAllUserRoles: 'getAllUserRoles',
     getManagementUser: 'getManagementUser',
+    addManagementUser: 'addManagementUser',
     updateManagementUser: 'updateManagementUser',
-    deleteUser: 'editUser',
+    removeManagementUser: 'removeManagementUser',
   }
 }

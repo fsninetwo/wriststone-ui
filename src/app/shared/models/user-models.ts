@@ -22,6 +22,15 @@ export interface UsersManagementEditDTO {
   userRole: UserRole,
 }
 
+export interface UsersManagementCreateDTO {
+  id: number,
+  login: string,
+  email: string,
+  password: string,
+  fullname: string,
+  userRole: UserRole,
+}
+
 export interface UserDTO {
   login: string,
   email: string,
@@ -44,7 +53,7 @@ export interface UserRegisterDTO {
   login: string,
   password: string,
   email: string,
-  fullName: string,
+  fullname: string,
   created: Date,
   userRole: string,
 }

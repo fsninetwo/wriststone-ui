@@ -51,7 +51,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       login: signupData.login,
       email: signupData.email,
       password: signupData.password,
-      fullName: signupData.fullName,
+      fullname: signupData.fullname,
       created: new Date(),
       userRole: UserRole.User
     };

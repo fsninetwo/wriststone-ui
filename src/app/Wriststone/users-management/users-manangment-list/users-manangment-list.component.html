@@ -1,0 +1,30 @@
+<div class="search">
+  <input type="text" placeholder="Search" name="search" (input)="search($event)">
+</div>
+
+<table class="list">
+  <tr>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="id">Id</th>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="login">Login</th>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="email">Email</th>
+    <th scope="col" [appSort]="users" data-order="desc" data-name="userRole">Role</th>
+    <th>Options</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <th>{{ user.id }}</th>
+    <th>{{ user.login }}</th>
+    <th>{{ user.email }}</th>
+    <th>{{ user.userRole }}</th>
+    <th>
+      <button (click)="goToEditUser(user.id)">Edit</button>
+      <button class="remove" (click)="removeUser(user.id)">Remove</button>
+    </th>
+  </tr>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th><button (click)="goToAddUser()">Add User</button></th>
+  </tr>
+</table>

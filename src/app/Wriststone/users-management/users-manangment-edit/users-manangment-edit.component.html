@@ -1,0 +1,29 @@
+<div class="log">
+  <h1>Edit User</h1>
+  <form [formGroup]="editForm" (ngSubmit)="(onSubmit())">
+    <input
+      type="text"
+      placeholder="Enter login"
+      name="login"
+      formControlName="login">
+    <input
+      type="text"
+      placeholder="Enter email"
+      name="email"
+      formControlName="email">
+    <input
+      type="text"
+      placeholder="Enter fullname"
+      name="fullname"
+      formControlName="fullname">
+    <select formControlName="userRole">
+      <option *ngFor="let role of userRoles" [ngValue] ="role">{{ role }}</option>
+    </select>
+    <span *ngIf="warningMessage">
+      {{ warningMessage }}
+    </span>
+    <button type="submit">Edit</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+</div>
+

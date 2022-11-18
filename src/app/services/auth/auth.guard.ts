@@ -17,13 +17,17 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 
-  protected HasRequiredPermission(data: any, access: string) {
-    const result = this.authInfoService.hasPermission(data['pageName'], access);
+  protected async HasRequiredPermission(data: any, access: string) {
+    const result = this.authInfoService.hasPermission(this.getPermissionName(data), access);
 
     if(!result) {
       this.navigationService.goToFullRoute('auth/login');
     }
 
     return result;
+  }
+
+  private getPermissionName(routeData: any) {
+    return routeData['permissionName'] || routeData['pageName'];
   }
 }

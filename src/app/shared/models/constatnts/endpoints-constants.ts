@@ -7,6 +7,9 @@ export const apiEndPoints = {
     authorize: 'authorize',
     register: 'register',
   },
+  products: {
+    getAllProducts: 'getAllProducts',
+  },
   permissions: {
     getDefaultPermissions: 'getDefaultPermissions',
     getPermissions: 'getPermissions',

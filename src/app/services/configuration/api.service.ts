@@ -41,6 +41,8 @@ export class ApiService {
     this.api[apiEndPoints.auth.authorize] = this.getTemplateFn`/Auth/Authorize`;
     this.api[apiEndPoints.auth.register] = this.getTemplateFn`/Auth/Register`;
 
+    this.api[apiEndPoints.products.getAllProducts] = this.getTemplateFn`/Product/GetAllProducts`;
+
     this.api[apiEndPoints.permissions.getDefaultPermissions] = this.getTemplateFn`/Permissions/GetDefaultPermissions`;
     this.api[apiEndPoints.permissions.getPermissions] = this.getTemplateFn`/Permissions/GetPermissions`;
 

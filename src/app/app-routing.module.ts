@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'user', loadChildren: () => import('./wriststone/user/user.module').then(m => m.UserModule) },
   { path: 'users', loadChildren: () => import('./Wriststone/users-management/users-management.module').then(m => m.UsersManagementModule) },
   { path: 'store', loadChildren: () => import('./wriststone/store/store.module').then(m => m.StoreModule) },
-  { path: '', redirectTo: '/store', pathMatch: 'full'  },
+  { path: '', redirectTo: '/store/list', pathMatch: 'full'  },
 ];
 
 @NgModule({

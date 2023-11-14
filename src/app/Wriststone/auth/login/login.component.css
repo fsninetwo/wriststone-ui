@@ -17,7 +17,11 @@
   box-sizing: border-box;
 }
 
-.log [type="submit"], button {
+.invalid-form {
+  color: #ff0000;
+}
+
+.submit-button {
   width: 100%;
   height: 30px;
   margin: 5px 0;

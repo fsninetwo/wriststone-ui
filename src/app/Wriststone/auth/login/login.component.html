@@ -6,17 +6,32 @@
         type="text"
         placeholder="Login or email"
         name="login"
-        formControlName="login">
+        formControlName="login"
+      >
       <input
         type="password"
         placeholder="Password"
         name="password"
-        formControlName="password">
-      <span *ngIf="warningMessage">
-        {{ warningMessage }}
+        formControlName="password"
+      >
+      <span
+        *ngIf="errorMessage"
+        class="invalid-form"
+      >
+        {{ errorMessage }}
       </span>
-      <button type="submit">Login</button>
+      <button
+        class="submit-button"
+        type="submit"
+      >
+        Login
+      </button>
   </form>
-  <button (click)="goToSignup()">Sign Up</button>
+  <button
+    class="submit-button"
+    (click)="goToSignup()"
+  >
+    Sign Up
+  </button>
 </div>
 

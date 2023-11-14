@@ -44,7 +44,7 @@ export interface UserEditDTO {
   fullName: string
 }
 
-export interface UserCredentialsDTO {
+export interface UserCredentialsDto {
   login: string;
   password: string;
 }

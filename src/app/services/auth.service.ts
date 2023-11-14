@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserAuthResponseDTO, UserCredentialsDTO, UserRegisterDTO } from "../shared/models/user-models";
+import { UserAuthResponseDTO, UserCredentialsDto, UserRegisterDTO } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({
@@ -22,7 +22,7 @@ export class AuthService {
     return this.http.post(url, userCredentials);
   }
 
-  authorize(userCredentials: UserCredentialsDTO) {
+  authorize(userCredentials: UserCredentialsDto) {
     const url = this.apiService.getMsApi({
       api: 'authorize',
       msEndPoint: 'wriststone'

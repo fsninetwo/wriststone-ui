@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { By } from "@angular/platform-browser";
 import { NavigationExtras } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { AuthInfoService } from "src/app/services/auth/auth-info.service";
 import { NavigationService } from "src/app/services/navigation.service";
@@ -51,8 +51,6 @@ describe("LoginComponent", () => {
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
-    mockAuthService = jasmine.createSpyObj(["authorize"]);
-
     await TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [
@@ -130,6 +128,18 @@ describe("LoginComponent", () => {
 
     expect(authService).toHaveBeenCalledWith(authData);
     expect(component.errorMessage).toEqual(authErrorMessage);
+  });
+
+  it("should call onSumbit method and return api error", () => {
+    component.loginForm.controls["login"].setValue("test");
+    component.loginForm.controls["password"].setValue("test");
+    expect(component.loginForm.valid).toBeTruthy();
+    fixture.detectChanges();
+
+    const authService = spyOn(component["authService"], "authorize").and.returnValue(throwError("Api Error"));
+    component.onSubmit();
+
+    expect(authService).toHaveBeenCalledWith(authData);
   });
 
   it("should call goToFullRoute when calling onSumbit method", () => {

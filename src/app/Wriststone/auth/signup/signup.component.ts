@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserRole, UserRegisterDTO } from 'src/app/shared/models/user-models';
+import { UserRole, UserRegisterDto } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-signup',
@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   registerUser(){
     const signupData = this.signupForm.value;
-    const userRegister: UserRegisterDTO = {
+    const userRegister: UserRegisterDto = {
       login: signupData.login,
       email: signupData.email,
       password: signupData.password,

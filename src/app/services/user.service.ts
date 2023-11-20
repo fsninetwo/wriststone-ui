@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserDTO, UserEditDTO } from "../shared/models/user-models";
+import { UserDto, UserEditDto } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({
@@ -20,16 +20,16 @@ export class UserService {
       innerParams: { userId }
     });
 
-    return this.http.get<UserDTO>(url);
+    return this.http.get<UserDto>(url);
   }
 
-  editUser(userEdit: UserEditDTO) {
+  editUser(userEdit: UserEditDto) {
 
     const url = this.apiService.getMsApi({
       api: 'editUser',
       msEndPoint: 'wriststone'
     });
 
-    return this.http.post<UserEditDTO>(url, userEdit);
+    return this.http.post<UserEditDto>(url, userEdit);
   }
 }

@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserCredentialsDto } from 'src/app/shared/models/user-models';
-import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { NavigationService } from "src/app/services/navigation.service";
+import { AuthService } from "src/app/services/auth.service";
+import { UserCredentialsDto } from "src/app/shared/models/user-models";
+import { AuthInfoService } from "src/app/services/auth/auth-info.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   errorMessage!: string;
   subscriptions: Subscription;
@@ -25,24 +25,32 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup ({
-      'login' : new FormControl(null, Validators.required),
-      'password' : new FormControl(null, Validators.required)
+      "login" : new FormControl(null, Validators.required),
+      "password" : new FormControl(null, Validators.required)
     });
   }
 
-  onSubmit() {
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  public onSubmit(): void {
     if(this.loginForm.invalid) {
       this.errorMessage = "Enter valid data";
       return;
     }
 
     this.errorMessage = "";
-    this.authorizeUser();
+    this.authorizeUser(this.loginForm);
     this.loginForm.reset();
   }
 
-  authorizeUser(){
-    const loginData = this.loginForm.value;
+  public goToSignup(): void {
+    this.navigationService.goToFullRoute("/auth/signup");
+  }
+
+  private authorizeUser(loginForm: FormGroup): void {
+    const loginData = loginForm.value;
 
     const userCredentials: UserCredentialsDto = {
       login: loginData.login,
@@ -58,14 +66,11 @@ export class LoginComponent implements OnInit {
           }
 
           this.authInfoService.setCurrentUser(authResponse.token);
-          this.navigationService.goToFullRoute('/');
+          this.navigationService.goToFullRoute("/");
         },
         (error) => {
           console.log(error);
-        }));
-  }
-
-  goToSignup(): void {
-    this.navigationService.goToFullRoute('/auth/signup');
+        })
+      );
   }
 }

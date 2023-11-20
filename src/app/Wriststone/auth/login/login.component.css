@@ -6,7 +6,7 @@
   padding: 18px 16px;
 }
 
-.log [type="text"],[type="password"],[type="email"] {
+.input-login {
   width: 100%;
   background-color: #f3f3f3;
   border: 1px solid #e7e7e7;

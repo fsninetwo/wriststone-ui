@@ -2,32 +2,36 @@
   <h1>Login</h1>
   <p>Please fill this form to enter account.</p>
   <form [formGroup]="loginForm" (ngSubmit)="(onSubmit())">
-      <input
-        type="text"
-        placeholder="Login or email"
-        name="login"
-        formControlName="login"
-      >
-      <input
-        type="password"
-        placeholder="Password"
-        name="password"
-        formControlName="password"
-      >
-      <span
-        *ngIf="errorMessage"
-        class="invalid-form"
-      >
-        {{ errorMessage }}
-      </span>
-      <button
-        class="submit-button"
-        type="submit"
-      >
-        Login
-      </button>
+    <input
+      type="text"
+      placeholder="Login or email"
+      name="login"
+      formControlName="login"
+      class="input-login"
+    >
+    <input
+      type="password"
+      placeholder="Password"
+      name="password"
+      formControlName="password"
+      class="input-login"
+    >
+    <span
+      *ngIf="errorMessage"
+      class="invalid-form"
+    >
+      {{ errorMessage }}
+    </span>
+    <button
+      id="login"
+      class="submit-button"
+      type="submit"
+    >
+      Login
+    </button>
   </form>
   <button
+    id="sign-up"
     class="submit-button"
     (click)="goToSignup()"
   >

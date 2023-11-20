@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
-import { UserEditDTO, UserRole, UserRegisterDTO } from 'src/app/shared/models/user-models';
+import { UserEditDto, UserRole, UserRegisterDto } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-user-edit',
@@ -62,7 +62,7 @@ export class UserEditComponent implements OnInit {
 
   editUser(){
     const signupData = this.editForm.value;
-    const userEdit: UserEditDTO = {
+    const userEdit: UserEditDto = {
       id: this.userId,
       email: signupData.email,
       fullName: signupData.fullName,

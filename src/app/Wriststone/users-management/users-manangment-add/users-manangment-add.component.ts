@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import { UsersManagementService } from 'src/app/services/users-management.service';
-import { UserRegisterDTO, UsersManagementCreateDTO } from 'src/app/shared/models/user-models';
+import { UserRegisterDto, UsersManagementCreateDto } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-users-manangment-add',
@@ -48,7 +48,7 @@ export class UsersManangmentAddComponent implements OnInit {
 
   addUser(){
     const editData = this.addForm.value;
-    const userEdit: UserRegisterDTO = {
+    const userEdit: UserRegisterDto = {
       login: editData.login,
       email: editData.email,
       password: editData.password,

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserAuthResponseDTO, UserCredentialsDto, UserRegisterDTO } from "../shared/models/user-models";
+import { UserAuthResponseDto, UserCredentialsDto, UserRegisterDto } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({
@@ -13,7 +13,7 @@ export class AuthService {
   ) {
   }
 
-  register(userCredentials: UserRegisterDTO) {
+  register(userCredentials: UserRegisterDto) {
     const url = this.apiService.getMsApi({
       api: 'register',
       msEndPoint: 'wriststone'
@@ -28,6 +28,6 @@ export class AuthService {
       msEndPoint: 'wriststone'
     });
 
-    return this.http.post<UserAuthResponseDTO>(url, userCredentials);
+    return this.http.post<UserAuthResponseDto>(url, userCredentials);
   }
 }

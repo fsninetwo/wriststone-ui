@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UsersManagementService } from 'src/app/services/users-management.service';
-import { UsersManagementDTO } from 'src/app/shared/models/user-models';
+import { UsersManagementDto } from 'src/app/shared/models/user-models';
 
 @Component({
   selector: 'app-users-manangment-list',
@@ -9,8 +9,8 @@ import { UsersManagementDTO } from 'src/app/shared/models/user-models';
   styleUrls: ['./users-manangment-list.component.css']
 })
 export class UsersManangmentListComponent implements OnInit {
-  usersSaved!: UsersManagementDTO[];
-  users!: UsersManagementDTO[];
+  usersSaved!: UsersManagementDto[];
+  users!: UsersManagementDto[];
 
   constructor(private navigationService: NavigationService,
     private usersManagementService: UsersManagementService) { }

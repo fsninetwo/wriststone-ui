@@ -1,0 +1,14 @@
+<div class="search">
+  <input type="text" placeholder="Search" name="search" (input)="search($event)">
+</div>
+
+<table class="list">
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Name</th>
+  </tr>
+  <tr *ngFor="let product of products">
+    <th>{{ product.id }}</th>
+    <th>{{ product.name }}</th>
+  </tr>
+</table>

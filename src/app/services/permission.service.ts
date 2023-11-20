@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Permission } from "../shared/models/permisson-models";
-import { UserRegisterDTO, UserCredentialsDTO, UserAuthResponseDTO } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserCredentialsDTO } from 'src/app/shared/models/user-models';
-import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { NavigationService } from "src/app/services/navigation.service";
+import { AuthService } from "src/app/services/auth.service";
+import { UserCredentialsDto } from "src/app/shared/models/user-models";
+import { AuthInfoService } from "src/app/services/auth/auth-info.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
-  warningMessage!: string;
+  errorMessage!: string;
   subscriptions: Subscription;
 
   constructor(
@@ -25,46 +25,52 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup ({
-      'login' : new FormControl(null, Validators.required),
-      'password' : new FormControl(null, Validators.required)
+      "login" : new FormControl(null, Validators.required),
+      "password" : new FormControl(null, Validators.required)
     });
   }
 
-  onSubmit() {
-    if(this.loginForm.invalid) {
-      this.warningMessage = "Enter valid data"
-    } else {
-      this.warningMessage = "";
-      this.authorizeUser();
-      this.loginForm.reset();
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
-  authorizeUser(){
-    const loginData = this.loginForm.value;
+  public onSubmit(): void {
+    if(this.loginForm.invalid) {
+      this.errorMessage = "Enter valid data";
+      return;
+    }
 
-    const userCredentials: UserCredentialsDTO = {
+    this.errorMessage = "";
+    this.authorizeUser(this.loginForm);
+    this.loginForm.reset();
+  }
+
+  public goToSignup(): void {
+    this.navigationService.goToFullRoute("/auth/signup");
+  }
+
+  private authorizeUser(loginForm: FormGroup): void {
+    const loginData = loginForm.value;
+
+    const userCredentials: UserCredentialsDto = {
       login: loginData.login,
       password: loginData.password
     };
 
     this.subscriptions.add(
       this.authService.authorize(userCredentials)
-      .subscribe((authResponse) => {
-        if(authResponse.isAuthSuccessful) {
-          this.authInfoService.setCurrentUser(authResponse.token);
-          this.navigationService.goToFullRoute('/');
-        } else {
-          this.warningMessage = authResponse.errorMessage;
-        }
-      },
-      (error) => {
-        console.log(error);
-      })
-    )
-  }
+        .subscribe((authResponse) => {
+          if(!authResponse.isAuthSuccessful) {
+            this.errorMessage = authResponse.errorMessage;
+            return;
+          }
 
-  goToSignup(): void {
-    this.navigationService.goToFullRoute('/auth/signup');
+          this.authInfoService.setCurrentUser(authResponse.token);
+          this.navigationService.goToFullRoute("/");
+        },
+        (error) => {
+          console.log(error);
+        })
+      );
   }
 }

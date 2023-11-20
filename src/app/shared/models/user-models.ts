@@ -7,14 +7,14 @@ export class User {
     public token: string) {}
 }
 
-export interface UsersManagementDTO {
+export interface UsersManagementDto {
   id: number,
   login: string,
   email: string,
   userRole: UserRole,
 }
 
-export interface UsersManagementEditDTO {
+export interface UsersManagementEditDto {
   id: number,
   login: string,
   email: string,
@@ -22,7 +22,7 @@ export interface UsersManagementEditDTO {
   userRole: UserRole,
 }
 
-export interface UsersManagementCreateDTO {
+export interface UsersManagementCreateDto {
   id: number,
   login: string,
   email: string,
@@ -31,25 +31,25 @@ export interface UsersManagementCreateDTO {
   userRole: UserRole,
 }
 
-export interface UserDTO {
+export interface UserDto {
   login: string,
   email: string,
   fullName: string,
   created: Date
 }
 
-export interface UserEditDTO {
+export interface UserEditDto {
   id: number;
   email: string,
   fullName: string
 }
 
-export interface UserCredentialsDTO {
+export interface UserCredentialsDto {
   login: string;
   password: string;
 }
 
-export interface UserRegisterDTO {
+export interface UserRegisterDto {
   login: string,
   password: string,
   email: string,
@@ -58,7 +58,7 @@ export interface UserRegisterDTO {
   userRole: string,
 }
 
-export interface UserAuthResponseDTO {
+export interface UserAuthResponseDto {
   isAuthSuccessful: boolean;
   errorMessage: string;
   token: string;

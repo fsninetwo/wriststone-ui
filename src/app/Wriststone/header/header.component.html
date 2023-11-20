@@ -1,6 +1,6 @@
 <div class="top-menu">
   <ul>
-    <li routerLinkActive="active"><a routerLink="store">Store</a></li>
+    <li routerLinkActive="active"><a routerLink="store/list">Store</a></li>
     <li routerLinkActive="active" *ngIf="hasPermission('User', 'Read')">
       <a routerLink="user/{{userId}}/detail">Profile</a>
     </li>

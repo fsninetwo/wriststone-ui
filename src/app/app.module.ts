@@ -21,9 +21,12 @@ import { InputTextComponent } from './shared/base-input-text/base-input-text.com
     InputTextComponent,
   ],
   imports: [
-    BrowserModule, AppRoutingModule,
-    UserModule, AuthModule,
-    StoreModule, HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    UserModule,
+    AuthModule,
+    StoreModule,
+    HttpClientModule,
     UsersManagementModule
   ],
   providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],

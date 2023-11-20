@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserRegisterDTO, UsersManagementDTO, UsersManagementEditDTO } from "../shared/models/user-models";
+import { UserRegisterDto, UsersManagementDto, UsersManagementEditDto } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
 @Injectable({
@@ -18,7 +18,7 @@ export class UsersManagementService {
       msEndPoint: 'wriststone'
     });
 
-    return this.http.get<UsersManagementDTO[]>(url);
+    return this.http.get<UsersManagementDto[]>(url);
   }
 
   getAllRoles() {
@@ -37,19 +37,19 @@ export class UsersManagementService {
       innerParams: { userId }
     });
 
-    return this.http.get<UsersManagementEditDTO>(url);
+    return this.http.get<UsersManagementEditDto>(url);
   }
 
-  updateUser(userEdit: UsersManagementEditDTO) {
+  updateUser(userEdit: UsersManagementEditDto) {
     const url = this.apiService.getMsApi({
       api: 'updateManagementUser',
       msEndPoint: 'wriststone'
     });
 
-    return this.http.put<UsersManagementEditDTO>(url, userEdit);
+    return this.http.put<UsersManagementEditDto>(url, userEdit);
   }
 
-  addUser(userCreate: UserRegisterDTO) {
+  addUser(userCreate: UserRegisterDto) {
     const url = this.apiService.getMsApi({
       api: 'addManagementUser',
       msEndPoint: 'wriststone',

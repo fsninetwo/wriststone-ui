@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Permission } from "../shared/models/permisson-models";
 import { ApiService } from "./configuration/api.service";
 
@@ -13,7 +14,7 @@ export class PermissionService {
   ) {
   }
 
-  getDefaultPermissions() {
+  public getDefaultPermissions(): Observable<Permission[]> {
     const url = this.apiService.getMsApi({
       api: 'getDefaultPermissions',
       msEndPoint: 'wriststone'
@@ -22,7 +23,7 @@ export class PermissionService {
     return this.http.get<Array<Permission>>(url);
   }
 
-  getPermissions() {
+  public getPermissions(): Observable<Permission[]> {
     const url = this.apiService.getMsApi({
       api: 'getPermissions',
       msEndPoint: 'wriststone'

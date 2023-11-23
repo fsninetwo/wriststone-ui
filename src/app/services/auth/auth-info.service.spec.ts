@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable, of } from "rxjs";
 import { Permission } from "src/app/shared/models/permisson-models";
@@ -6,7 +6,6 @@ import { User, UserRole } from "src/app/shared/models/user-models";
 import { LocalStorageService } from "../local-storage.service";
 import { PermissionService } from "../permission.service";
 import { AuthInfoService } from "./auth-info.service";
-import { tokenConstants } from "./models/token-constants";
 
 const defaultPermissions: Permission[] = [
   { permission: "test", accessLevel: "test" }

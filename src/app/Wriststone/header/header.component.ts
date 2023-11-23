@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
-import { Permission } from 'src/app/shared/models/permisson-models';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +35,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authInfoService.logout();
+    this.authInfoService.removeCurrentUser();
   }
 }

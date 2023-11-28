@@ -12,22 +12,16 @@ export class Sort {
       this.sortOrder = -1;
     }
 
-    return (a, b) => {
-      if(type === "date") {
-        return this.sortData(new Date(a[property]), new Date(b[property]));
-      } else {
-        return this.collator.compare(a[property], b[property]) * this.sortOrder;
-      }
-    }
+    return (a, b) => (type === "date")
+      ? this.sortData(new Date(a[property]), new Date(b[property]))
+      : this.collator.compare(a[property], b[property]) * this.sortOrder;
   }
 
   private sortData(a, b) {
-    if (a < b) {
-      return -1 * this.sortOrder;
-    } else if (a > b) {
-      return 1 * this.sortOrder
-    } else {
-      return 0 * this.sortOrder;
-    }
+    const orderDireection = (a < b)
+      ? -1 : (a > b)
+        ? 1 : 0
+
+    return orderDireection * this.sortOrder;
   }
 }

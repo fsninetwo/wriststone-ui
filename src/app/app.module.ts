@@ -12,6 +12,11 @@ import { AuthGuard } from './services/auth/auth.guard';
 import { AuthInterceptorService } from './services/interceptors/auth-interceptor.service';
 import { UsersManagementModule } from './Wriststone/users-management/users-management.module';
 import { InputTextComponent } from './shared/base-input-text/base-input-text.component';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
@@ -21,6 +26,12 @@ import { InputTextComponent } from './shared/base-input-text/base-input-text.com
     InputTextComponent,
   ],
   imports: [
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:4200"],
+      },
+    }),
     BrowserModule,
     AppRoutingModule,
     UserModule,

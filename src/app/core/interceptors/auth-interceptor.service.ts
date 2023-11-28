@@ -7,7 +7,7 @@ import { AuthService } from "../../services/auth.service";
 import { AuthInfoService } from "../../services/auth/auth-info.service";
 
 @Injectable()
-export class AuthInterceptorService implements HttpInterceptor{
+export class AuthInterceptor implements HttpInterceptor{
   constructor(private authService: AuthInfoService){}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("Auth Interceptor");

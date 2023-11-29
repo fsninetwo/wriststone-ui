@@ -9,7 +9,7 @@ import { AuthModule } from './wriststone/auth/auth.module';
 import { HeaderComponent } from './wriststone/header/header.component';
 import { StoreModule } from './wriststone/store/store.module';
 import { AuthGuard } from './services/auth/auth.guard';
-import { AuthInterceptorService } from './services/interceptors/auth-interceptor.service';
+import { AuthInterceptorService } from './core/interceptors/auth-interceptor.service';
 import { UsersManagementModule } from './Wriststone/users-management/users-management.module';
 import { InputTextComponent } from './shared/base-input-text/base-input-text.component';
 import { JwtModule } from '@auth0/angular-jwt';

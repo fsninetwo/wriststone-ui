@@ -3,18 +3,18 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
 import { nonAuthorizationEndpoints } from "src/app/services/auth/models/auth-endpoints";
-import { AuthService } from "../auth.service";
-import { AuthInfoService } from "../auth/auth-info.service";
+import { AuthService } from "../../services/auth.service";
+import { AuthInfoService } from "../../services/auth/auth-info.service";
 
 @Injectable()
-export class AuthInterceptorService implements HttpInterceptor{
+export class AuthInterceptor implements HttpInterceptor{
   constructor(private authService: AuthInfoService){}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("Auth Interceptor");
     const user = this.authService.getCurrentUser();
 
     if(!this.isRequestAnonymous(req.url)){
-      if(user && user.token) {
+      if(user?.token) {
         const modReq = req.clone({
           setHeaders: {
             Authorization: `Bearer ${user.token}`

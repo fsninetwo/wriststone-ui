@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor{
     const user = this.authService.getCurrentUser();
 
     if(!this.isRequestAnonymous(req.url)){
-      if(user && user.token) {
+      if(user?.token) {
         const modReq = req.clone({
           setHeaders: {
             Authorization: `Bearer ${user.token}`

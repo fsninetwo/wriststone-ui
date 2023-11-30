@@ -5,10 +5,10 @@
 <div class="users-list">
   <table>
     <tr>
-      <th scope="col" [appSort]="users" data-order="desc" data-name="id">Id</th>
-      <th scope="col" [appSort]="users" data-order="desc" data-name="login">Login</th>
-      <th scope="col" [appSort]="users" data-order="desc" data-name="email">Email</th>
-      <th scope="col" [appSort]="users" data-order="desc" data-name="userRole">Role</th>
+      <th id="id" scope="col" [appSort]="users" data-order="desc" data-name="id">Id</th>
+      <th id="login" scope="col" [appSort]="users" data-order="desc" data-name="login">Login</th>
+      <th id="email" scope="col" [appSort]="users" data-order="desc" data-name="email">Email</th>
+      <th id="userRole" scope="col" [appSort]="users" data-order="desc" data-name="userRole">Role</th>
       <th>Options</th>
     </tr>
     <tr *ngFor="let user of users">

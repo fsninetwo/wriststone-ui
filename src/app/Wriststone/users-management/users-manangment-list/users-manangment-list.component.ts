@@ -9,8 +9,8 @@ import { UsersManagementDto } from 'src/app/shared/models/user-models';
   styleUrls: ['./users-manangment-list.component.css'],
 })
 export class UsersManangmentListComponent implements OnInit {
-  usersSaved!: UsersManagementDto[];
   users!: UsersManagementDto[];
+  filteredUsers!: UsersManagementDto[];
 
   constructor(
     private navigationService: NavigationService,
@@ -21,16 +21,16 @@ export class UsersManangmentListComponent implements OnInit {
     this.updateUsersList();
   }
 
-  search(event: any) {
+  public search(event: any): void {
     const text = event.target.value;
 
     if (!text) {
-      this.users = this.usersSaved;
+      this.filteredUsers = this.users;
       return;
     }
 
     if (text.length >= 3) {
-      this.users = this.usersSaved.filter(
+      this.filteredUsers = this.users.filter(
         (x) => x.login.includes(text.toLowerCase())
           || x.email.includes(text.toLowerCase())
           || x.userRole.includes(text.toLowerCase())
@@ -38,24 +38,24 @@ export class UsersManangmentListComponent implements OnInit {
     }
   }
 
-  goToEditUser(id: number) {
+  public goToEditUser(id: number): void {
     this.navigationService.goToFullRoute(`users/${id}/edit`);
   }
 
-  goToAddUser() {
+  public goToAddUser(): void {
     this.navigationService.goToFullRoute(`users/add`);
   }
 
-  removeUser(id: number) {
+  public removeUser(id: number): void {
     this.usersManagementService.removeUser(id).subscribe((event) => {
       this.updateUsersList();
     });
   }
 
-  private updateUsersList() {
+  private updateUsersList(): void {
     this.usersManagementService.getAllUsers().subscribe((users) => {
-      this.usersSaved = users;
-      this.users = this.usersSaved;
+      this.users = users;
+      this.filteredUsers = this.users;
     });
   }
 }

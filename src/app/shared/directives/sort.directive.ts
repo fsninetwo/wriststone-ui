@@ -6,22 +6,17 @@ import { Sort } from "../utils/sort";
 })
 export class SortDirective {
   @Input() appSort!: Array<any>;
-  constructor(private renderer: Renderer2, private targetElem: ElementRef) {}
+  constructor(private elem: ElementRef) {}
 
   @HostListener("click")
   sortData(){
     const sort = new Sort();
-    const elem = this.targetElem.nativeElement;
+    const elem = this.elem.nativeElement;
     const order = elem.getAttribute("data-order");
     const type = elem.getAttribute("data-type");
     const property = elem.getAttribute("data-name");
 
-    if(order === "desc") {
-      this.appSort.sort(sort.startSort(property, order, type));
-      elem.setAttribute("data-order", "asc");
-    } else {
-      this.appSort.sort(sort.startSort(property, order, type));
-      elem.setAttribute("data-order", "desc");
-    }
+    this.appSort.sort(sort.startSort(property, order, type));
+    elem.setAttribute("data-order", order === "desc" ? "asc" : "desc");
   }
 }

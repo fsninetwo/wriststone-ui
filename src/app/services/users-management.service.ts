@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { UserRegisterDto, UsersManagementDto, UsersManagementEditDto } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
 
@@ -10,9 +11,10 @@ import { ApiService } from "./configuration/api.service";
 export class UsersManagementService {
   constructor(
     private apiService: ApiService,
-    private http: HttpClient) {}
+    private http: HttpClient
+  ) {}
 
-  getAllUsers() {
+  public getAllUsers(): Observable<UsersManagementDto[]> {
     const url = this.apiService.getMsApi({
       api: 'getAllUsers',
       msEndPoint: 'wriststone'
@@ -21,7 +23,7 @@ export class UsersManagementService {
     return this.http.get<UsersManagementDto[]>(url);
   }
 
-  getAllRoles() {
+  public getAllRoles(): Observable<string[]> {
     const url = this.apiService.getMsApi({
       api: 'getAllUserRoles',
       msEndPoint: 'wriststone'
@@ -30,7 +32,7 @@ export class UsersManagementService {
     return this.http.get<string[]>(url);
   }
 
-  getUser(userId: number) {
+  public getUser(userId: number): Observable<UsersManagementEditDto> {
     const url = this.apiService.getMsApi({
       api: 'getManagementUser',
       msEndPoint: 'wriststone',
@@ -40,7 +42,7 @@ export class UsersManagementService {
     return this.http.get<UsersManagementEditDto>(url);
   }
 
-  updateUser(userEdit: UsersManagementEditDto) {
+  public updateUser(userEdit: UsersManagementEditDto): Observable<UsersManagementEditDto> {
     const url = this.apiService.getMsApi({
       api: 'updateManagementUser',
       msEndPoint: 'wriststone'
@@ -49,7 +51,7 @@ export class UsersManagementService {
     return this.http.put<UsersManagementEditDto>(url, userEdit);
   }
 
-  addUser(userCreate: UserRegisterDto) {
+  public addUser(userCreate: UserRegisterDto) {
     const url = this.apiService.getMsApi({
       api: 'addManagementUser',
       msEndPoint: 'wriststone',
@@ -58,7 +60,7 @@ export class UsersManagementService {
     return this.http.post(url, userCreate);
   }
 
-  removeUser(userId: number) {
+  public removeUser(userId: number) {
     const url = this.apiService.getMsApi({
       api: 'removeManagementUser',
       msEndPoint: 'wriststone',

@@ -5,7 +5,7 @@ import { NavigationExtras, Router } from "@angular/router";
   providedIn: 'root'
 })
 export class NavigationService {
-  constructor( private router: Router ) {}
+  constructor(private router: Router) {}
 
   goToFullRoute(route: string, options?: NavigationExtras) {
     this.router.navigate([route], options);

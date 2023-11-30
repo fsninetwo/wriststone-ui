@@ -6,5 +6,5 @@ export class AuthConstant {
   public static writeAccess = "Write";
   public static NoAccess = "No Access";
 
-  public static usersManagement_PermissionName = "Users Management";
+  public static usersManagement_PermissionName = "User Management";
 }

@@ -1,8 +1,12 @@
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Store } from "@ngrx/store";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Permission } from "src/app/shared/models/permisson-models";
 import { User } from "src/app/shared/models/user-models";
+import { AppState } from "src/app/store/app.states";
+import { AuthActions } from "src/app/store/auth/auth.actions";
+import { getAuthState } from "src/app/store/auth/auth.selectors";
 import { LocalStorageService } from "../local-storage.service";
 import { PermissionService } from "../permission.service";
 import { tokenConstants } from "./models/token-constants";
@@ -20,7 +24,8 @@ export class AuthInfoService {
   constructor(
     private jwtHelperService: JwtHelperService,
     private permissionService: PermissionService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private store: Store<AppState>
   ) {
     this.currentPermissions = JSON.parse(this.localStorageService.getItem("permissions")!);
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.localStorageService.getItem("userData")!));
@@ -44,6 +49,8 @@ export class AuthInfoService {
   }
 
   public getCurrentUser(): User {
+    let selectedUser: User | null;
+    this.store.select(getAuthState).subscribe((user: any) => selectedUser = user);
     return this.currentUserSubject.value;
   }
 
@@ -59,6 +66,7 @@ export class AuthInfoService {
         token);
 
       this.localStorageService.setItem("userData", JSON.stringify(user));
+      this.store.dispatch(AuthActions.Login({currentUser: user}));
       this.currentUserSubject.next(user);
       this.initializePermissions();
     }
@@ -66,6 +74,7 @@ export class AuthInfoService {
 
   public removeCurrentUser() {
     this.localStorageService.removeItem("userData");
+    this.store.dispatch(AuthActions.Logout());
     this.currentUserSubject.next(null!);
     this.updatePermissions();
   }

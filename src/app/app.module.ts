@@ -7,12 +7,14 @@ import { UserModule } from './wriststone/user/user.module';
 import { FooterComponent } from './wriststone/footer/footer.component';
 import { AuthModule } from './wriststone/auth/auth.module';
 import { HeaderComponent } from './wriststone/header/header.component';
-import { StoreModule } from './wriststone/store/store.module';
 import { AuthGuard } from './services/auth/auth.guard';
 import { UsersManagementModule } from './Wriststone/users-management/users-management.module';
 import { InputTextComponent } from './shared/base-input-text/base-input-text.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor.service';
+import { StorePageModule } from './wriststone/store/store.module';
+import { StoreModule } from '@ngrx/store';
+import * as fromAuth from "./store/app.reducer";
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -36,7 +38,8 @@ export function tokenGetter() {
     AppRoutingModule,
     UserModule,
     AuthModule,
-    StoreModule,
+    StorePageModule,
+    StoreModule.forRoot(fromAuth.appState),
     HttpClientModule,
     UsersManagementModule
   ],

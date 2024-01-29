@@ -1,21 +1,12 @@
-import { Action } from "@ngrx/store";
 import { User } from "src/app/shared/models/user-models";
+import unionize, { ofType, UnionOf } from "unionize";
 
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
+export const AuthActions = unionize({
+  Login: ofType<{user: User | null}>(),
+  Logout: ofType<{}>()
+}, {
+  tag: "type",
+  value: "payload"
+});
 
-export class Login implements Action {
-  readonly type = LOGIN;
-  constructor(public payload: User | null) {
-
-  }
-}
-
-export class Logout implements Action {
-  readonly type = LOGOUT;
-  constructor() {
-
-  }
-}
-
-export type AuthActions = Login | Logout;
+export type AuthActionsType = UnionOf<typeof AuthActions>;

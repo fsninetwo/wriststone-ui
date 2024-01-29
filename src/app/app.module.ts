@@ -13,8 +13,7 @@ import { InputTextComponent } from './shared/base-input-text/base-input-text.com
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor.service';
 import { StorePageModule } from './wriststone/store/store.module';
-import { StoreModule } from '@ngrx/store';
-import * as fromAuth from "./store/app.reducer";
+import { AppStateModule } from './store/app.module';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -39,9 +38,9 @@ export function tokenGetter() {
     UserModule,
     AuthModule,
     StorePageModule,
-    StoreModule.forRoot(fromAuth.appState),
     HttpClientModule,
-    UsersManagementModule
+    UsersManagementModule,
+    AppStateModule
   ],
   providers: [
     AuthGuard,

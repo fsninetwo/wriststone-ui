@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Store } from "@ngrx/store";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { Permission } from "src/app/shared/models/permisson-models";
 import { User } from "src/app/shared/models/user-models";
 import { AppState } from "src/app/store/app.states";
 import { LocalStorageService } from "../local-storage.service";
 import { PermissionService } from "../permission.service";
 import { tokenConstants } from "./models/token-constants";
-import * as AuthActions from "src/app/store/auth/auth.actions"
 import { map } from "rxjs/operators";
+import { AuthActions } from "src/app/store/auth/auth.actions";
+import { getCurrentUser } from "src/app/store/auth/auth.selectors";
 
 @Injectable(
   { providedIn: "root" }
@@ -27,9 +28,10 @@ export class AuthInfoService {
     private store: Store<AppState>
   ) {
     this.currentPermissions = JSON.parse(this.localStorageService.getItem("permissions")!);
-    this.store.dispatch(new AuthActions.Login(JSON.parse(this.localStorageService.getItem("userData")!)));
-    this.currentUser = this.store.select("authState")
-      .pipe(map((payload: any) => payload.currentUser.payload));
+    var user = JSON.parse(this.localStorageService.getItem("userData")!) as User;
+    this.store.dispatch(AuthActions.Login({user}));
+    this.currentUser = this.store.select(getCurrentUser)
+      .pipe(map((payload: any) => payload));
   }
 
   public isAuthorized() {
@@ -50,9 +52,9 @@ export class AuthInfoService {
 
   public getCurrentUser(): User | null {
     let selectedUser: User | null = null;
-    this.store.select("authState")
-      .subscribe((payload: any) => {
-        selectedUser = payload.currentUser.payload
+    this.store.select(getCurrentUser)
+      .subscribe((payload: User | null) => {
+        selectedUser = payload
       });
 
     return selectedUser;
@@ -70,14 +72,14 @@ export class AuthInfoService {
         token);
 
       this.localStorageService.setItem("userData", JSON.stringify(user));
-      this.store.dispatch(new AuthActions.Login(user));
+      this.store.dispatch(AuthActions.Login({ user }));
       this.initializePermissions();
     }
   }
 
   public removeCurrentUser() {
     this.localStorageService.removeItem("userData");
-    this.store.dispatch(new AuthActions.Logout());
+    this.store.dispatch(AuthActions.Logout());
     this.updatePermissions();
   }
 

@@ -24,17 +24,10 @@ export class AuthInfoService {
     private localStorageService: LocalStorageService,
     private store: Store<AppState>
   ) {
-    const currentPermissions = JSON.parse(
-      this.localStorageService.getItem('permissions')!
-    );
-    this.store.dispatch(
-      PermissionsActions.SetPermissions({
-        permissions: currentPermissions ?? [],
-      })
-    );
     const user = JSON.parse(
       this.localStorageService.getItem('userData')!
     ) as User;
+
     this.store.dispatch(AuthActions.Login({ user }));
     this.currentUser = this.store
       .select(getCurrentUser)
@@ -87,7 +80,6 @@ export class AuthInfoService {
   public removeCurrentUser() {
     this.localStorageService.removeItem('userData');
     this.store.dispatch(AuthActions.Logout());
-    this.updatePermissions();
   }
 
   public hasPermission(permissionName: string, accessLavel: string): boolean {
@@ -111,14 +103,6 @@ export class AuthInfoService {
     this.getCurrentUser()
       ? this.getPermissions()
       : this.getDefaultPermissions();
-  }
-
-  private updatePermissions() {
-    this.localStorageService.removeItem('permissions');
-    this.store.dispatch(
-      PermissionsActions.SetPermissions({ permissions: [] })
-    );
-    this.initializePermissions();
   }
 
   private getPermissions() {

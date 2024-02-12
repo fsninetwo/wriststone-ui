@@ -5,6 +5,9 @@ import { AuthState, initialState } from "./auth.states";
 
 export const authProducer = (state: AuthState, action: AuthActionsType) =>
   AuthActions.match(action, {
+    SetCurrentUser: (value: { user: User | null }) => {
+      state.currentUser = value.user
+    },
     Login: (value: { user: User | null }) => {
       state.currentUser = value.user
     },

@@ -27,27 +27,37 @@ export class AuthInfoService {
     const user = JSON.parse(
       this.localStorageService.getItem('userData')!
     ) as User;
+    this.store.dispatch(AuthActions.SetCurrentUser({ user }));
 
-    this.store.dispatch(AuthActions.Login({ user }));
+    const currentPermissions = JSON.parse(
+      this.localStorageService.getItem('permissions')!
+    );
+    this.store.dispatch(
+      PermissionsActions.SetPermissions({
+        permissions: currentPermissions ?? [],
+      })
+    );
+
     this.currentUser = this.store
       .select(getCurrentUser)
       .pipe(map((payload: any) => payload));
   }
 
-  public isAuthorized() {
-    const data = this.localStorageService.getItem('userData');
-    if (!data) {
-      this.removeCurrentUser();
-      return false;
-    }
+  public isAuthorized(): boolean {
+    let isAuthorized: boolean = true;
+    this.store.select(getCurrentUser).subscribe((payload: User | null) => {
+      if (!payload) {
+        this.removeCurrentUser();
+        isAuthorized = false;
+      }
 
-    const user = JSON.parse(data);
-    if (this.jwtHelperService.isTokenExpired(user.token)) {
-      this.removeCurrentUser();
-      return false;
-    }
+      if (this.jwtHelperService.isTokenExpired(payload?.token)) {
+        this.removeCurrentUser();
+        isAuthorized = false;
+      }
+    });
 
-    return true;
+    return isAuthorized;
   }
 
   public getCurrentUser(): User | null {

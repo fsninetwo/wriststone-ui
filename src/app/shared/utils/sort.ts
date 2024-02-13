@@ -17,7 +17,7 @@ export class Sort {
       : this.collator.compare(a[property], b[property]) * this.sortOrder;
   }
 
-  private sortData(a, b) {
+  private sortData(a: any, b: any) {
     const orderDireection = (a < b)
       ? -1 : (a > b)
         ? 1 : 0

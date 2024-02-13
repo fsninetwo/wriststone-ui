@@ -1,83 +1,112 @@
-import { Injectable } from "@angular/core";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { BehaviorSubject, Observable } from "rxjs";
-import { Permission } from "src/app/shared/models/permisson-models";
-import { User } from "src/app/shared/models/user-models";
-import { LocalStorageService } from "../local-storage.service";
-import { PermissionService } from "../permission.service";
-import { tokenConstants } from "./models/token-constants";
+import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Permission } from 'src/app/shared/models/permisson-models';
+import { User } from 'src/app/shared/models/user-models';
+import { AppState } from 'src/app/store/app.states';
+import { LocalStorageService } from '../local-storage.service';
+import { PermissionService } from '../permission.service';
+import { tokenConstants } from './models/token-constants';
+import { map } from 'rxjs/operators';
+import { AuthActions } from 'src/app/store/auth/auth.actions';
+import { getCurrentUser } from 'src/app/store/auth/auth.selectors';
+import { PermissionsActions } from 'src/app/store/permissions/permissions.actions';
+import { getCurrentPermissions } from 'src/app/store/permissions/permissions.selectors';
 
-@Injectable(
-  { providedIn: "root" }
-)
-
+@Injectable({ providedIn: 'root' })
 export class AuthInfoService {
-  private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-
-  private currentPermissions: Permission[];
 
   constructor(
     private jwtHelperService: JwtHelperService,
     private permissionService: PermissionService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private store: Store<AppState>
   ) {
-    this.currentPermissions = JSON.parse(this.localStorageService.getItem("permissions")!);
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.localStorageService.getItem("userData")!));
-    this.currentUser = this.currentUserSubject.asObservable();
+    const user = JSON.parse(
+      this.localStorageService.getItem('userData')!
+    ) as User;
+    this.store.dispatch(AuthActions.SetCurrentUser({ user }));
+
+    const currentPermissions = JSON.parse(
+      this.localStorageService.getItem('permissions')!
+    );
+    this.store.dispatch(
+      PermissionsActions.SetPermissions({
+        permissions: currentPermissions ?? [],
+      })
+    );
+
+    this.currentUser = this.store
+      .select(getCurrentUser)
+      .pipe(map((payload: any) => payload));
   }
 
-  public isAuthorized() {
-    const data = this.localStorageService.getItem("userData");
-    if(!data) {
-      this.removeCurrentUser();
-      return false;
-    }
+  public isAuthorized(): boolean {
+    let isAuthorized: boolean = true;
+    this.store.select(getCurrentUser).subscribe((payload: User | null) => {
+      if (!payload) {
+        this.removeCurrentUser();
+        isAuthorized = false;
+        return;
+      }
 
-    const user = JSON.parse(data);
-    if(this.jwtHelperService.isTokenExpired(user.token)){
-      this.removeCurrentUser();
-      return false;
-    }
+      if (this.jwtHelperService.isTokenExpired(payload?.token)) {
+        this.removeCurrentUser();
+        isAuthorized = false;
+        return;
+      }
+    });
 
-    return true;
+    return isAuthorized;
   }
 
-  public getCurrentUser(): User {
-    return this.currentUserSubject.value;
+  public getCurrentUser(): User | null {
+    let selectedUser: User | null = null;
+    this.store.select(getCurrentUser).subscribe((payload: User | null) => {
+      selectedUser = payload;
+    });
+
+    return selectedUser;
   }
 
   public setCurrentUser(token: string) {
-    if(token) {
+    if (token) {
       const data = this.jwtHelperService.decodeToken(token);
 
-      const user = new User (
+      const user = new User(
         data[tokenConstants.id].toString(),
         data[tokenConstants.name].toString(),
         data[tokenConstants.email].toString(),
         data[tokenConstants.role].toString(),
-        token);
+        token
+      );
 
-      this.localStorageService.setItem("userData", JSON.stringify(user));
-      this.currentUserSubject.next(user);
+      this.localStorageService.setItem('userData', JSON.stringify(user));
+      this.store.dispatch(AuthActions.Login({ user }));
       this.initializePermissions();
     }
   }
 
   public removeCurrentUser() {
-    this.localStorageService.removeItem("userData");
-    this.currentUserSubject.next(null!);
-    this.updatePermissions();
+    this.localStorageService.removeItem('userData');
+    this.store.dispatch(AuthActions.Logout());
   }
 
-  public hasPermission(permissionName: string, accessLavel: string){
-    if(!this.currentPermissions) {
-      this.initializePermissions();
-    }
-    const permission = this.currentPermissions.find(
-      x => x.permission.toLowerCase() === permissionName.toLowerCase()
-        && x.accessLevel.toLowerCase() === accessLavel.toLowerCase()
-    )
+  public hasPermission(permissionName: string, accessLavel: string): boolean {
+    let permission: Permission | undefined;
+
+    this.store.select(getCurrentPermissions).subscribe((permissions: Permission[]) => {
+      if (!permissions) {
+        this.initializePermissions();
+      }
+      permission = permissions.find(
+        (x) =>
+          x.permission.toLowerCase() === permissionName.toLowerCase() &&
+          x.accessLevel.toLowerCase() === accessLavel.toLowerCase()
+      );
+    });
 
     return !!permission;
   }
@@ -88,31 +117,41 @@ export class AuthInfoService {
       : this.getDefaultPermissions();
   }
 
-  private updatePermissions() {
-    this.localStorageService.removeItem("permissions");
-    this.currentPermissions = null!;
-    this.initializePermissions();
-  }
-
-  private getPermissions(){
-    this.permissionService.getPermissions()
-      .subscribe((permissions) => {
-        this.localStorageService.setItem("permissions", JSON.stringify(permissions));
-        this.currentPermissions = permissions;
+  private getPermissions() {
+    this.permissionService.getPermissions().subscribe(
+      (permissions) => {
+        this.localStorageService.setItem(
+          'permissions',
+          JSON.stringify(permissions)
+        );
+        this.store.dispatch(
+          PermissionsActions.SetPermissions({
+            permissions: permissions ?? [],
+          })
+        );
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
   }
 
-  private getDefaultPermissions(){
-    this.permissionService.getDefaultPermissions()
-      .subscribe((permissions) => {
-        this.localStorageService.setItem("permissions", JSON.stringify(permissions));
-        this.currentPermissions = permissions;
+  private getDefaultPermissions() {
+    this.permissionService.getDefaultPermissions().subscribe(
+      (permissions) => {
+        this.localStorageService.setItem(
+          'permissions',
+          JSON.stringify(permissions)
+        );
+        this.store.dispatch(
+          PermissionsActions.SetPermissions({
+            permissions: permissions ?? [],
+          })
+        );
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
   }
 }

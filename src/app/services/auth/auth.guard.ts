@@ -9,8 +9,8 @@ export class AuthGuard implements CanActivate {
     private navigationService: NavigationService,
     private authInfoService: AuthInfoService) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if(this.authInfoService.isAuthorized()){
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if(await this.authInfoService.isAuthorized()){
       return this.HasRequiredPermission(route.data, route.data.availableFor);
     }
 

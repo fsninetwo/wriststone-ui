@@ -13,4 +13,4 @@ import { StoreListComponent } from './store-list/store-list.component';
     StoreRoutingModule,
   ],
 })
-export class StoreModule { }
+export class StorePageModule { }

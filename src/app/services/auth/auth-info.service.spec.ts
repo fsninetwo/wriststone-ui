@@ -1,8 +1,12 @@
-import { TestBed } from "@angular/core/testing";
+import { inject, TestBed } from "@angular/core/testing";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
 import { Permission } from "src/app/shared/models/permisson-models";
 import { User, UserRole } from "src/app/shared/models/user-models";
+import { StoreMock } from "src/app/store/app.mock-store";
+import { AppState } from "src/app/store/app.states";
+import { PermissionsActions } from "src/app/store/permissions/permissions.actions";
 import { LocalStorageService } from "../local-storage.service";
 import { PermissionService } from "../permission.service";
 import { AuthInfoService } from "./auth-info.service";
@@ -74,102 +78,119 @@ describe("AuthInfoService", () => {
         { provide: JwtHelperService, useClass: JwtHelperServiceMock },
         { provide: PermissionService, useClass: PermissionServiceMock },
         { provide: LocalStorageService, useClass: LocalStorageServiceMock },
+        { provide: Store, useClass: StoreMock }
       ],
     });
     service = TestBed.inject(AuthInfoService);
   });
 
+  beforeEach(inject([Store], (store: Store<AppState>) => {
+    store.dispatch(PermissionsActions.SetPermissions({ permissions }));
+  }))
+
   it("should create", () => {
     expect(service).toBeTruthy();
   });
 
-  it("getCurrentUser return valid user", () => {
-    const result = service.getCurrentUser();
-    expect(result).toEqual(user);
+  describe("getCurrentUser return valid user", () => {
+    let store: StoreMock<any>;
+    beforeEach(inject([Store], (appStore: StoreMock<any>) => {
+      store = appStore;
+      store.setState(user);
+    }));
+
+    it("getCurrentUser return valid user", () => {
+      const result = service.getCurrentUser();
+      expect(result).toEqual(user);
+    });
   });
+
 
   it("removeCurrentUser should comlete susscessfully", () => {
     spyOn(service["localStorageService"], "removeItem");
-    const permissonService = spyOn(service["permissionService"], "getDefaultPermissions").and.returnValue(of(defaultPermissions));
-    spyOn(service["localStorageService"], "setItem");
     service.removeCurrentUser();
 
     expect(service["localStorageService"].removeItem).toHaveBeenCalledWith("userData");
-    expect(permissonService).toHaveBeenCalled();
-    expect(service["localStorageService"].setItem).toHaveBeenCalledWith("permissions", JSON.stringify(defaultPermissions));
   });
 
   it("setCurrentUser should set correct user", () => {
     const jwtHelperService = spyOn(service["jwtHelperService"], "decodeToken").and.returnValue(tokenData);
     spyOn(service["localStorageService"], "setItem");
-    const permissonService = spyOn(service["permissionService"], "getPermissions").and.returnValue(of(permissions));
     service.setCurrentUser(tokenData);
 
     expect(jwtHelperService).toHaveBeenCalledWith(tokenData);
-    expect(permissonService).toHaveBeenCalled();
-    expect(service["localStorageService"].setItem).toHaveBeenCalledWith("permissions", JSON.stringify(permissions));
   });
 
-  it("hasPermission should return true when has access to default permissons", () => {
-    service.removeCurrentUser();
-    const result = service.hasPermission("test", "test");
-    expect(result).toBeTrue();
+  describe("hasPermission, ", () => {
+    let store: StoreMock<any>;
+    beforeEach(inject([Store], (appStore: StoreMock<any>) => {
+      store = appStore;
+      store.setState(permissions);
+    }));
+
+    it("should return true when has access to default permissons", () => {
+      store.setState(defaultPermissions);
+      service.removeCurrentUser();
+      const result = service.hasPermission("test", "test");
+      expect(result).toBeTrue();
+    });
+
+    it("should return false when has access to default permissons, but not to role permissions", () => {
+      store.setState(defaultPermissions);
+      service.removeCurrentUser();
+      const result = service.hasPermission("test1", "test1");
+      expect(result).toBeFalse();
+    });
+
+    it("should return true when user has access to permisson", () => {
+      spyOn(service["jwtHelperService"], "decodeToken").and.returnValue(tokenData);
+      service.setCurrentUser(tokenData);
+      const result = service.hasPermission("test", "test");
+      expect(result).toBeTrue();
+    });
+
+    it("should return false when user has no access to permisson", () => {
+      spyOn(service["jwtHelperService"], "decodeToken").and.returnValue(tokenData);
+      service.setCurrentUser(tokenData);
+      const result = service.hasPermission("test2", "test2");
+      expect(result).toBeFalse();
+    });
   });
 
-  it("hasPermission should return false when has access to default permissons, but not to role permissions", () => {
-    service.removeCurrentUser();
-    const result = service.hasPermission("test1", "test1");
-    expect(result).toBeFalse();
-  });
+  describe("isAuthorized, ", () => {
+    let store: StoreMock<any>;
+    beforeEach(inject([Store], (appStore: StoreMock<any>) => {
+      store = appStore;
+      store.setState(user);
+    }));
 
-  it("hasPermission should return true when user has access to permisson", () => {
-    spyOn(service["jwtHelperService"], "decodeToken").and.returnValue(tokenData);
-    service.setCurrentUser(tokenData);
-    const result = service.hasPermission("test", "test");
-    expect(result).toBeTrue();
-  });
+    it("user is null and should return false", () => {
+      store.setState(null);
+      spyOn(service["jwtHelperService"], "isTokenExpired");
 
-  it("hasPermission should return false when user has no access to permisson", () => {
-    spyOn(service["jwtHelperService"], "decodeToken").and.returnValue(tokenData);
-    service.setCurrentUser(tokenData);
-    const result = service.hasPermission("test2", "test2");
-    expect(result).toBeFalse();
-  });
+      const result = service.isAuthorized();
 
-  it("isAuthorized token is null and should return false", () => {
-    const localStorageService =
-    spyOn(service["localStorageService"], "getItem").and.returnValue(null);
-    spyOn(service["jwtHelperService"], "isTokenExpired");
+      expect(service["jwtHelperService"].isTokenExpired).toHaveBeenCalledTimes(0);
+      expect(result).toBeFalse();
+    });
 
-    const result = service.isAuthorized();
+    it("token is expired and should return false", () => {
+      const jwtHelperService =
+        spyOn(service["jwtHelperService"], "isTokenExpired").and.returnValue(true);
 
-    expect(localStorageService).toHaveBeenCalledWith("userData");
-    expect(service["jwtHelperService"].isTokenExpired).toHaveBeenCalledTimes(0);
-    expect(result).toBeFalse();
-  });
+      const result = service.isAuthorized();
 
-  it("isAuthorized token is expired and should return false", () => {
-    const localStorageService =
-      spyOn(service["localStorageService"], "getItem").and.returnValue(JSON.stringify(user));
-    const jwtHelperService =
-      spyOn(service["jwtHelperService"], "isTokenExpired").and.returnValue(true);
+      expect(jwtHelperService).toHaveBeenCalledWith("test");
+      expect(result).toBeFalse();
+    });
 
-    const result = service.isAuthorized();
+    it("token is valid should return true", () => {
+      spyOn(service["jwtHelperService"], "isTokenExpired");
 
-    expect(localStorageService).toHaveBeenCalledWith("userData");
-    expect(jwtHelperService).toHaveBeenCalledWith("test");
-    expect(result).toBeFalse();
-  });
+      const result = service.isAuthorized();
 
-  it("isAuthorized token is valid should return true", () => {
-    const localStorageService =
-      spyOn(service["localStorageService"], "getItem").and.returnValue(JSON.stringify(user));
-    spyOn(service["jwtHelperService"], "isTokenExpired");
-
-    const result = service.isAuthorized();
-
-    expect(localStorageService).toHaveBeenCalledWith("userData");
-    expect(service["jwtHelperService"].isTokenExpired).toHaveBeenCalledWith("test");
-    expect(result).toBeTrue();
-  });
+      expect(service["jwtHelperService"].isTokenExpired).toHaveBeenCalledWith("test");
+      expect(result).toBeTrue();
+    });
+  })
 });

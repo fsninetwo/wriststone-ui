@@ -49,11 +49,13 @@ export class AuthInfoService {
       if (!payload) {
         this.removeCurrentUser();
         isAuthorized = false;
+        return;
       }
 
       if (this.jwtHelperService.isTokenExpired(payload?.token)) {
         this.removeCurrentUser();
         isAuthorized = false;
+        return;
       }
     });
 

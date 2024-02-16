@@ -60,7 +60,9 @@ export class UsersManangmentListComponent implements OnInit {
   }
 
   public onChangePage(event: any) {
-    console.log(event);
+    this.pagination.pageIndex = event.index;
+    this.pagination.pageSize = event.size;
+    this.updateUsersList();
   }
 
   private updateUsersList(): void {

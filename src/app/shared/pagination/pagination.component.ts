@@ -25,7 +25,9 @@ export class PaginationComponent implements OnChanges {
   pager?: Pager;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.setPage(this.pageIndex);
+    if(changes["pageIndex"]){
+      this.setPage(this.pageIndex);
+    }
   }
 
   setPage(page: number) {
@@ -36,6 +38,8 @@ export class PaginationComponent implements OnChanges {
       this.pageSize,
       this.itemsPerPage
     );
+
+    this.changePage.emit({index: this.pager.currentPage, size: this.pager.pageSize});
   }
 
   paginate(

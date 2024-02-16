@@ -9,7 +9,8 @@ import {
 
 @Component({
   selector: 'app-pagination',
-  templateUrl: 'pagination.component.html'
+  templateUrl: 'pagination.component.html',
+  styleUrls: ["./pagination.component.css"]
 })
 export class PaginationComponent implements OnChanges {
   @Output() changePage = new EventEmitter<{
@@ -24,11 +25,7 @@ export class PaginationComponent implements OnChanges {
   pager?: Pager;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("Changes");
-    // set page when items array first set or changed
-    if (changes.page !== changes.items.previousValue) {
-      this.setPage(this.pageIndex);
-    }
+    this.setPage(this.pageIndex);
   }
 
   setPage(page: number) {

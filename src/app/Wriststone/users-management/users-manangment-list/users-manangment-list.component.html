@@ -46,4 +46,10 @@
       </th>
     </tr>
   </table>
+  <app-pagination
+    [totalSize]="pagination.totalSize"
+    [pageIndex]="pagination.pageIndex"
+    [pageSize]="pagination.pageSize"
+    (changePage)="onChangePage($event)"
+  ></app-pagination>
 </div>

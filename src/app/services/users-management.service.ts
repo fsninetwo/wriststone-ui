@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserRegisterDto, UsersManagementDto, UsersManagementEditDto } from "../shared/models/user-models";
 import { ApiService } from "./configuration/api.service";
+import { PaginatedList } from "src/app/shared/models/paginated-list.model";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,15 @@ export class UsersManagementService {
     });
 
     return this.http.get<UsersManagementDto[]>(url);
+  }
+
+  public getPaginatedAllUsers(): Observable<PaginatedList<UsersManagementDto>> {
+    const url = this.apiService.getMsApi({
+      api: 'getPaginatedAllUsers',
+      msEndPoint: 'wriststone'
+    });
+
+    return this.http.get<PaginatedList<UsersManagementDto>>(url);
   }
 
   public getAllRoles(): Observable<string[]> {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UsersManagementService } from 'src/app/services/users-management.service';
+import { PaginationModel } from 'src/app/shared/models/pagination.model';
 import { UsersManagementDto } from 'src/app/shared/models/user-models';
 
 @Component({
@@ -11,6 +12,11 @@ import { UsersManagementDto } from 'src/app/shared/models/user-models';
 export class UsersManangmentListComponent implements OnInit {
   users!: UsersManagementDto[];
   filteredUsers!: UsersManagementDto[];
+  pagination: PaginationModel = {
+    pageIndex: 1,
+    pageSize: 0,
+    totalSize: 0
+  }
 
   constructor(
     private navigationService: NavigationService,
@@ -52,10 +58,18 @@ export class UsersManangmentListComponent implements OnInit {
     });
   }
 
+  public onChangePage(event: any) {
+    console.log(event);
+  }
+
   private updateUsersList(): void {
-    this.usersManagementService.getAllUsers().subscribe((users) => {
-      this.users = users;
+    this.usersManagementService.getPaginatedAllUsers().subscribe((paginatedUsers) => {
+      console.log(paginatedUsers);
+      this.users = paginatedUsers.items;
       this.filteredUsers = this.users;
+      this.pagination.pageIndex = paginatedUsers.pageIndex;
+      this.pagination.pageSize = paginatedUsers.pageSize;
+      this.pagination.totalSize = paginatedUsers.totalCount;
     });
   }
 }

@@ -16,6 +16,7 @@ export class UsersManangmentListComponent implements OnInit {
     pageIndex: 1,
     pageSize: 1,
     totalSize: 0,
+    itemsPerPage: 1,
   };
 
   constructor(

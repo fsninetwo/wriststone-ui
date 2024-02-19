@@ -20,6 +20,7 @@ export const apiEndPoints = {
   },
   usersManagement: {
     getAllUsers: 'getAllUsers',
+    getPaginatedAllUsers: 'getPaginatedAllUsers',
     getAllUserRoles: 'getAllUserRoles',
     getManagementUser: 'getManagementUser',
     addManagementUser: 'addManagementUser',

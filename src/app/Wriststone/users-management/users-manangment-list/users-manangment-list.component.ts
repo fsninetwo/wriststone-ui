@@ -1,16 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { UsersManagementService } from 'src/app/services/users-management.service';
-import { UsersManagementDto } from 'src/app/shared/models/user-models';
+import { Component, OnInit } from "@angular/core";
+import { NavigationService } from "src/app/services/navigation.service";
+import { UsersManagementService } from "src/app/services/users-management.service";
+import { PaginationModel } from "src/app/shared/models/pagination.model";
+import { UsersManagementDto } from "src/app/shared/models/user-models";
 
 @Component({
-  selector: 'app-users-manangment-list',
-  templateUrl: './users-manangment-list.component.html',
-  styleUrls: ['./users-manangment-list.component.css'],
+  selector: "app-users-manangment-list",
+  templateUrl: "./users-manangment-list.component.html",
+  styleUrls: ["./users-manangment-list.component.css"],
 })
 export class UsersManangmentListComponent implements OnInit {
   users!: UsersManagementDto[];
   filteredUsers!: UsersManagementDto[];
+  pagination: PaginationModel = {
+    pageIndex: 1,
+    pageSize: 1,
+    totalSize: 0,
+    itemsPerPage: 1,
+  };
 
   constructor(
     private navigationService: NavigationService,
@@ -31,9 +38,10 @@ export class UsersManangmentListComponent implements OnInit {
 
     if (text.length >= 3) {
       this.filteredUsers = this.users.filter(
-        (x) => x.login.includes(text.toLowerCase())
-          || x.email.includes(text.toLowerCase())
-          || x.userRole.includes(text.toLowerCase())
+        (x) =>
+          x.login.includes(text.toLowerCase()) ||
+          x.email.includes(text.toLowerCase()) ||
+          x.userRole.includes(text.toLowerCase())
       );
     }
   }
@@ -52,10 +60,21 @@ export class UsersManangmentListComponent implements OnInit {
     });
   }
 
+  public onChangePage(event: any) {
+    this.pagination.pageIndex = event.index;
+    this.pagination.pageSize = event.size;
+    this.updateUsersList();
+  }
+
   private updateUsersList(): void {
-    this.usersManagementService.getAllUsers().subscribe((users) => {
-      this.users = users;
-      this.filteredUsers = this.users;
-    });
+    this.usersManagementService
+      .getPaginatedAllUsers(this.pagination)
+      .subscribe((paginatedUsers) => {
+        this.users = paginatedUsers.items;
+        this.filteredUsers = this.users;
+        this.pagination.pageIndex = paginatedUsers.pageIndex;
+        this.pagination.pageSize = paginatedUsers.pageSize;
+        this.pagination.totalSize = paginatedUsers.totalCount;
+      });
   }
 }

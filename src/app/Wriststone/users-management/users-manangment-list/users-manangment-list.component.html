@@ -46,4 +46,11 @@
       </th>
     </tr>
   </table>
+  <app-pagination
+    [totalCount]="pagination.totalSize"
+    [currentPage]="pagination.pageIndex"
+    [pageSize]="pagination.pageSize"
+    [itemsPerPage]="pagination.itemsPerPage"
+    (changePage)="onChangePage($event)"
+  ></app-pagination>
 </div>

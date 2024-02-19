@@ -50,6 +50,7 @@ export class ApiService {
     this.api[apiEndPoints.users.editUser] = this.getTemplateFn`/User/EditUser`;
 
     this.api[apiEndPoints.usersManagement.getAllUsers] = this.getTemplateFn`/UsersManagement/GetAllUsers`;
+    this.api[apiEndPoints.usersManagement.getPaginatedAllUsers] = this.getTemplateFn`/UsersManagement/GetPaginatedAllUsers`;
     this.api[apiEndPoints.usersManagement.getAllUserRoles] = this.getTemplateFn`/UsersManagement/GetAllUserRoles`;
     this.api[apiEndPoints.usersManagement.getManagementUser] = this.getTemplateFn`/UsersManagement/GetUser/${'userId'}`;
     this.api[apiEndPoints.usersManagement.addManagementUser] = this.getTemplateFn`/UsersManagement/AddUser`;

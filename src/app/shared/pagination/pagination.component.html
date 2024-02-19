@@ -1,0 +1,29 @@
+<div class="top-menu">
+  <ul>
+    <li *ngIf="currentPage != 1" class="page-item">
+      <a (click)="onPageChange(1)" class="page-link">First</a>
+    </li>
+    <li *ngIf="currentPage != 1" class="page-item">
+      <a (click)="onPageChange(currentPage - 1)" class="page-link">Previous</a>
+    </li>
+    <li
+      *ngFor="let page of counter()"
+      [ngClass]="{ active: currentPage === page }"
+      class="page-item"
+    >
+      <a (click)="onPageChange(page)" class="page-link">{{ page }}</a>
+    </li>
+    <li
+      *ngIf="currentPage != totalPages"
+      class="page-item"
+    >
+      <a (click)="onPageChange(currentPage + 1)" class="page-link">Next</a>
+    </li>
+    <li
+      *ngIf="currentPage != totalPages"
+      class="page-item"
+    >
+      <a (click)="onPageChange(totalPages)" class="page-link">Last</a>
+    </li>
+  </ul>
+</div>

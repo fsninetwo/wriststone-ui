@@ -47,9 +47,9 @@ describe("AuthInterceptor", () => {
     ]
 });
 
-    httpClientMock = TestBed.get(HttpTestingController);
-    httpMock = TestBed.get(HttpClient);
-    authInfoServiceMock = TestBed.get(AuthInfoService);
+    httpClientMock = TestBed.inject(HttpTestingController);
+    httpMock = TestBed.inject(HttpClient);
+    authInfoServiceMock = TestBed.inject(AuthInfoService);
     interceptor = new AuthInterceptor(authInfoServiceMock);
   });
 

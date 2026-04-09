@@ -29,7 +29,7 @@ describe("PermissionService", () => {
     ]
 });
     service = TestBed.inject(PermissionService);
-    httpMock = TestBed.get(HttpTestingController)
+    httpMock = TestBed.inject(HttpTestingController)
   });
 
   it("should create", () => {

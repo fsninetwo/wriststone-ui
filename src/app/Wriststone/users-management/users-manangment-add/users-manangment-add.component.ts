@@ -8,9 +8,10 @@ import { UsersManagementService } from 'src/app/services/users-management.servic
 import { UserRegisterDto, UsersManagementCreateDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-users-manangment-add',
-  templateUrl: './users-manangment-add.component.html',
-  styleUrls: ['./users-manangment-add.component.css']
+    selector: 'app-users-manangment-add',
+    templateUrl: './users-manangment-add.component.html',
+    styleUrls: ['./users-manangment-add.component.css'],
+    standalone: false
 })
 export class UsersManangmentAddComponent implements OnInit {
   public subscriptions: Subscription;

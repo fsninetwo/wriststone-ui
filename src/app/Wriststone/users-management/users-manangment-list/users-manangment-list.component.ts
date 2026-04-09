@@ -5,9 +5,10 @@ import { PaginationModel } from "src/app/shared/models/pagination.model";
 import { UsersManagementDto } from "src/app/shared/models/user-models";
 
 @Component({
-  selector: "app-users-manangment-list",
-  templateUrl: "./users-manangment-list.component.html",
-  styleUrls: ["./users-manangment-list.component.css"],
+    selector: "app-users-manangment-list",
+    templateUrl: "./users-manangment-list.component.html",
+    styleUrls: ["./users-manangment-list.component.css"],
+    standalone: false
 })
 export class UsersManangmentListComponent implements OnInit {
   users!: UsersManagementDto[];

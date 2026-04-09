@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;

@@ -7,9 +7,10 @@ import { UserCredentialsDto } from "src/app/shared/models/user-models";
 import { AuthInfoService } from "src/app/services/auth/auth-info.service";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.css"],
+    standalone: false
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: UntypedFormGroup;

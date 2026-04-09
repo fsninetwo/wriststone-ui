@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from "@angular/
 import { Sort } from "../utils/sort";
 
 @Directive({
-  selector: '[appSort]'
+    selector: '[appSort]',
+    standalone: false
 })
 export class SortDirective {
   @Input() appSort!: Array<any>;

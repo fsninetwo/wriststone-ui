@@ -4,9 +4,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 
 @Component({
-  selector: 'app-user-header',
-  templateUrl: './user-header.component.html',
-  styleUrls: ['./user-header.component.css']
+    selector: 'app-user-header',
+    templateUrl: './user-header.component.html',
+    styleUrls: ['./user-header.component.css'],
+    standalone: false
 })
 export class UserHeaderComponent implements OnInit {
   private userSub!: Subscription;

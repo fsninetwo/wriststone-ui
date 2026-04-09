@@ -7,9 +7,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserRole, UserRegisterDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.css'],
+    standalone: false
 })
 export class SignupComponent implements OnInit, OnDestroy {
   signupForm!: UntypedFormGroup;

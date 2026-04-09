@@ -8,9 +8,10 @@ import { UserService } from 'src/app/services/user.service';
 import { UserEditDto, UserRole, UserRegisterDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+    selector: 'app-user-edit',
+    templateUrl: './user-edit.component.html',
+    styleUrls: ['./user-edit.component.css'],
+    standalone: false
 })
 export class UserEditComponent implements OnInit {
   public subscriptions: Subscription;

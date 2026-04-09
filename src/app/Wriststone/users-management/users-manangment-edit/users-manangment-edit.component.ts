@@ -9,9 +9,10 @@ import { UsersManagementService } from 'src/app/services/users-management.servic
 import { UserEditDto, UsersManagementEditDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-users-manangment-edit',
-  templateUrl: './users-manangment-edit.component.html',
-  styleUrls: ['./users-manangment-edit.component.css']
+    selector: 'app-users-manangment-edit',
+    templateUrl: './users-manangment-edit.component.html',
+    styleUrls: ['./users-manangment-edit.component.css'],
+    standalone: false
 })
 export class UsersManangmentEditComponent implements OnInit {
   public subscriptions: Subscription;

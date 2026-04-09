@@ -6,24 +6,28 @@
       placeholder="Enter login"
       name="login"
       formControlName="login">
-    <input
-      type="text"
-      placeholder="Enter email"
-      name="email"
-      formControlName="email">
-    <input
-      type="text"
-      placeholder="Enter fullname"
-      name="fullname"
-      formControlName="fullname">
-    <select formControlName="userRole">
-      <option *ngFor="let role of userRoles" [ngValue] ="role">{{ role }}</option>
-    </select>
-    <span *ngIf="warningMessage">
-      {{ warningMessage }}
-    </span>
-    <button type="submit">Edit</button>
-    <button type="button" (click)="cancel()">Cancel</button>
-  </form>
-</div>
+      <input
+        type="text"
+        placeholder="Enter email"
+        name="email"
+        formControlName="email">
+        <input
+          type="text"
+          placeholder="Enter fullname"
+          name="fullname"
+          formControlName="fullname">
+          <select formControlName="userRole">
+            @for (role of userRoles; track role) {
+              <option [ngValue] ="role">{{ role }}</option>
+            }
+          </select>
+          @if (warningMessage) {
+            <span>
+              {{ warningMessage }}
+            </span>
+          }
+          <button type="submit">Edit</button>
+          <button type="button" (click)="cancel()">Cancel</button>
+        </form>
+      </div>
 

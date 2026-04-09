@@ -1,13 +1,21 @@
 <div class="top-menu">
   <ul>
     <li routerLinkActive="active"><a routerLink="store/list">Store</a></li>
-    <li routerLinkActive="active" *ngIf="hasPermission('User', 'Read')">
-      <a routerLink="user/{{userId}}/detail">Profile</a>
-    </li>
-    <li routerLinkActive="active" *ngIf="hasPermission('User Management', 'Read')">
-      <a routerLink="users/list">Users</a>
-    </li>
-    <li *ngIf="!isAuthenticated"><a routerLink="auth/login" >Login</a></li>
-    <li *ngIf="isAuthenticated"><a (click)="logout()">Logout</a></li>
+    @if (hasPermission('User', 'Read')) {
+      <li routerLinkActive="active">
+        <a routerLink="user/{{userId}}/detail">Profile</a>
+      </li>
+    }
+    @if (hasPermission('User Management', 'Read')) {
+      <li routerLinkActive="active">
+        <a routerLink="users/list">Users</a>
+      </li>
+    }
+    @if (!isAuthenticated) {
+      <li><a routerLink="auth/login" >Login</a></li>
+    }
+    @if (isAuthenticated) {
+      <li><a (click)="logout()">Logout</a></li>
+    }
   </ul>
 </div>

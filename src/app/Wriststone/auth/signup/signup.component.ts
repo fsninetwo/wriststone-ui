@@ -1,6 +1,6 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +12,7 @@ import { UserRole, UserRegisterDto } from 'src/app/shared/models/user-models';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  signupForm!: FormGroup;
+  signupForm!: UntypedFormGroup;
   warningMessage!: string;
 
   public subscriptions: Subscription;
@@ -24,11 +24,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup ({
-      'login' : new FormControl(null, Validators.required),
-      'email' : new FormControl(null, [Validators.required, Validators.email]),
-      'password' : new FormControl(null, [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,30}$")]),
-      'fullname' : new FormControl(null)
+    this.signupForm = new UntypedFormGroup ({
+      'login' : new UntypedFormControl(null, Validators.required),
+      'email' : new UntypedFormControl(null, [Validators.required, Validators.email]),
+      'password' : new UntypedFormControl(null, [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,30}$")]),
+      'fullname' : new UntypedFormControl(null)
     });
   }
 

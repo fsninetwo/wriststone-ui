@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
@@ -16,7 +16,7 @@ import { UserEditDto, UsersManagementEditDto } from 'src/app/shared/models/user-
 export class UsersManangmentEditComponent implements OnInit {
   public subscriptions: Subscription;
   userRoles!: string[];
-  editForm!: FormGroup;
+  editForm!: UntypedFormGroup;
   warningMessage!: string;
   userId!: number;
 
@@ -83,11 +83,11 @@ export class UsersManangmentEditComponent implements OnInit {
   }
 
   setEditForm(){
-    this.editForm = new FormGroup ({
-      'login' : new FormControl(null, [Validators.required]),
-      'email' : new FormControl(null, [Validators.required, Validators.email]),
-      'fullname' : new FormControl(null),
-      'userRole' : new FormControl(null, [Validators.required])
+    this.editForm = new UntypedFormGroup ({
+      'login' : new UntypedFormControl(null, [Validators.required]),
+      'email' : new UntypedFormControl(null, [Validators.required, Validators.email]),
+      'fullname' : new UntypedFormControl(null),
+      'userRole' : new UntypedFormControl(null, [Validators.required])
     });
   }
 

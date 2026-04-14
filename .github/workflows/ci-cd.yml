@@ -20,7 +20,7 @@ jobs:
           node-version: 'v24.14.x'
 
       - name: Install Dependencies
-        run: npm install --force
+        run: npm install
 
       - name: Build Angular
         run: npm run build

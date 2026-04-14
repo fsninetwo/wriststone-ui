@@ -6,9 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 import { UserDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.css']
+    selector: 'app-user-detail',
+    templateUrl: './user-detail.component.html',
+    styleUrls: ['./user-detail.component.css'],
+    standalone: false
 })
 export class UserDetailComponent implements OnInit, OnDestroy {
   userInfo!: UserDto;

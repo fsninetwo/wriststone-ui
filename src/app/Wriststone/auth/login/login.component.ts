@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { NavigationService } from "src/app/services/navigation.service";
 import { AuthService } from "src/app/services/auth.service";
@@ -7,12 +7,13 @@ import { UserCredentialsDto } from "src/app/shared/models/user-models";
 import { AuthInfoService } from "src/app/services/auth/auth-info.service";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.css"],
+    standalone: false
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
   errorMessage!: string;
   subscriptions: Subscription;
 
@@ -24,9 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup ({
-      "login" : new FormControl(null, Validators.required),
-      "password" : new FormControl(null, Validators.required)
+    this.loginForm = new UntypedFormGroup ({
+      "login" : new UntypedFormControl(null, Validators.required),
+      "password" : new UntypedFormControl(null, Validators.required)
     });
   }
 
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.navigationService.goToFullRoute("/auth/signup");
   }
 
-  private authorizeUser(loginForm: FormGroup): void {
+  private authorizeUser(loginForm: UntypedFormGroup): void {
     const loginData = loginForm.value;
 
     const userCredentials: UserCredentialsDto = {

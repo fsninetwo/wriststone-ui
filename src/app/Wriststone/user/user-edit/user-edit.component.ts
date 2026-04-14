@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
@@ -8,14 +8,15 @@ import { UserService } from 'src/app/services/user.service';
 import { UserEditDto, UserRole, UserRegisterDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+    selector: 'app-user-edit',
+    templateUrl: './user-edit.component.html',
+    styleUrls: ['./user-edit.component.css'],
+    standalone: false
 })
 export class UserEditComponent implements OnInit {
   public subscriptions: Subscription;
   userSub!: Subscription;
-  editForm!: FormGroup;
+  editForm!: UntypedFormGroup;
   warningMessage!: string;
   userId!: number;
 
@@ -28,9 +29,9 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editForm = new FormGroup ({
-      'email' : new FormControl(null, [Validators.required, Validators.email]),
-      'fullname' : new FormControl(null)
+    this.editForm = new UntypedFormGroup ({
+      'email' : new UntypedFormControl(null, [Validators.required, Validators.email]),
+      'fullname' : new UntypedFormControl(null)
     });
     this.route.params.subscribe(
       (params: Params) => {

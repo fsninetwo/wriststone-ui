@@ -11,26 +11,28 @@
       <th id="userRole" scope="col" [appSort]="users" data-order="desc" data-name="userRole">Role</th>
       <th>Options</th>
     </tr>
-    <tr *ngFor="let user of filteredUsers">
-      <th id="{{user.id}}">{{ user.id }}</th>
-      <th id="{{user.login}}">{{ user.login }}</th>
-      <th id="{{user.email}}">{{ user.email }}</th>
-      <th id="{{user.userRole}}">{{ user.userRole }}</th>
-      <th>
-        <button
-          class="submit-button"
-          (click)="goToEditUser(user.id)"
-        >
-          Edit
-        </button>
-        <button
-          class="submit-button remove-button"
-          (click)="removeUser(user.id)"
-        >
-          Remove
-        </button>
-      </th>
-    </tr>
+    @for (user of filteredUsers; track user) {
+      <tr>
+        <th id="{{user.id}}">{{ user.id }}</th>
+        <th id="{{user.login}}">{{ user.login }}</th>
+        <th id="{{user.email}}">{{ user.email }}</th>
+        <th id="{{user.userRole}}">{{ user.userRole }}</th>
+        <th>
+          <button
+            class="submit-button"
+            (click)="goToEditUser(user.id)"
+            >
+            Edit
+          </button>
+          <button
+            class="submit-button remove-button"
+            (click)="removeUser(user.id)"
+            >
+            Remove
+          </button>
+        </th>
+      </tr>
+    }
     <tr>
       <th></th>
       <th></th>
@@ -40,7 +42,7 @@
         <button
           class="submit-button"
           (click)="goToAddUser()"
-        >
+          >
           Add User
         </button>
       </th>

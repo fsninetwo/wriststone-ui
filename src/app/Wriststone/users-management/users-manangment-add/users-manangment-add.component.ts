@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -8,14 +8,15 @@ import { UsersManagementService } from 'src/app/services/users-management.servic
 import { UserRegisterDto, UsersManagementCreateDto } from 'src/app/shared/models/user-models';
 
 @Component({
-  selector: 'app-users-manangment-add',
-  templateUrl: './users-manangment-add.component.html',
-  styleUrls: ['./users-manangment-add.component.css']
+    selector: 'app-users-manangment-add',
+    templateUrl: './users-manangment-add.component.html',
+    styleUrls: ['./users-manangment-add.component.css'],
+    standalone: false
 })
 export class UsersManangmentAddComponent implements OnInit {
   public subscriptions: Subscription;
   userRoles!: string[];
-  addForm!: FormGroup;
+  addForm!: UntypedFormGroup;
   warningMessage!: string;
   userId!: number;
 
@@ -77,12 +78,12 @@ export class UsersManangmentAddComponent implements OnInit {
   }
 
   setAddForm(){
-    this.addForm = new FormGroup ({
-      'login' : new FormControl(null, [Validators.required]),
-      'email' : new FormControl(null, [Validators.required, Validators.email]),
-      'password' : new FormControl(null, [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,30}$")]),
-      'fullname' : new FormControl(null),
-      'userRole' : new FormControl(null, [Validators.required])
+    this.addForm = new UntypedFormGroup ({
+      'login' : new UntypedFormControl(null, [Validators.required]),
+      'email' : new UntypedFormControl(null, [Validators.required, Validators.email]),
+      'password' : new UntypedFormControl(null, [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,30}$")]),
+      'fullname' : new UntypedFormControl(null),
+      'userRole' : new UntypedFormControl(null, [Validators.required])
     });
   }
 

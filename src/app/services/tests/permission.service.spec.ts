@@ -2,7 +2,8 @@ import { TestBed } from "@angular/core/testing";
 import { Permission } from "src/app/shared/models/permisson-models";
 import { ApiService } from "../configuration/api.service";
 import { PermissionService } from "../permission.service";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing"
+import { HttpTestingController, provideHttpClientTesting } from "@angular/common/http/testing"
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 const defaultPermissions: Permission[] = [
   { permission: "test", accessLevel: "test" }
@@ -20,15 +21,15 @@ describe("PermissionService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ],
-      providers: [
-        { provide: ApiService, useValue: mockApiService }
-      ],
-    });
+    imports: [],
+    providers: [
+        { provide: ApiService, useValue: mockApiService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     service = TestBed.inject(PermissionService);
-    httpMock = TestBed.get(HttpTestingController)
+    httpMock = TestBed.inject(HttpTestingController)
   });
 
   it("should create", () => {

@@ -4,9 +4,10 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductDTO } from 'src/app/shared/models/product-models';
 
 @Component({
-  selector: 'app-store-list',
-  templateUrl: './store-list.component.html',
-  styleUrls: ['./store-list.component.css']
+    selector: 'app-store-list',
+    templateUrl: './store-list.component.html',
+    styleUrls: ['./store-list.component.css'],
+    standalone: false
 })
 export class StoreListComponent implements OnInit {
   productsSaved!: ProductDTO[];

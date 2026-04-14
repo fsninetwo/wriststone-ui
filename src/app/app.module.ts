@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { UserModule } from './wriststone/user/user.module';
 import { FooterComponent } from './wriststone/footer/footer.component';
@@ -19,33 +19,27 @@ export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    FooterComponent,
-    HeaderComponent,
-    InputTextComponent,
-  ],
-  imports: [
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:4200"],
-      },
-    }),
-    BrowserModule,
-    AppRoutingModule,
-    UserModule,
-    AuthModule,
-    StorePageModule,
-    HttpClientModule,
-    UsersManagementModule,
-    AppStateModule
-  ],
-  providers: [
-    AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        FooterComponent,
+        HeaderComponent,
+        InputTextComponent,
+    ],
+    bootstrap: [AppComponent], imports: [JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:4200"],
+            },
+        }),
+        BrowserModule,
+        AppRoutingModule,
+        UserModule,
+        AuthModule,
+        StorePageModule,
+        UsersManagementModule,
+        AppStateModule], providers: [
+        AuthGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

@@ -8,34 +8,35 @@
       name="login"
       formControlName="login"
       class="input-login"
-    >
-    <input
-      type="password"
-      placeholder="Password"
-      name="password"
-      formControlName="password"
-      class="input-login"
-    >
-    <span
-      *ngIf="errorMessage"
-      class="invalid-form"
-    >
-      {{ errorMessage }}
-    </span>
-    <button
-      id="login"
-      class="submit-button"
-      type="submit"
-    >
-      Login
-    </button>
-  </form>
-  <button
-    id="sign-up"
-    class="submit-button"
-    (click)="goToSignup()"
-  >
-    Sign Up
-  </button>
-</div>
+      >
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        formControlName="password"
+        class="input-login"
+        >
+        @if (errorMessage) {
+          <span
+            class="invalid-form"
+            >
+            {{ errorMessage }}
+          </span>
+        }
+        <button
+          id="login"
+          class="submit-button"
+          type="submit"
+          >
+          Login
+        </button>
+      </form>
+      <button
+        id="sign-up"
+        class="submit-button"
+        (click)="goToSignup()"
+        >
+        Sign Up
+      </button>
+    </div>
 

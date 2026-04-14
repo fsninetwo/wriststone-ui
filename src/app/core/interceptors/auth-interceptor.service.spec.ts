@@ -1,5 +1,5 @@
-import { HttpClient, HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { HttpClient, HttpRequest, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { HttpTestingController, provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { JwtModule } from "@auth0/angular-jwt";
 import { observable, Observable } from "rxjs";
@@ -33,24 +33,23 @@ describe("AuthInterceptor", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        JwtModule.forRoot({
-          config: {
-            tokenGetter: tokenGetter,
-            allowedDomains: ["localhost:4200"],
-          },
-        }),
-        HttpClientTestingModule
-      ],
-      providers: [
+    imports: [JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:4200"],
+            },
+        })],
+    providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-        { provide: AuthInfoService, useClass: AuthInfoServiceMock }
-      ]
-    });
+        { provide: AuthInfoService, useClass: AuthInfoServiceMock },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
-    httpClientMock = TestBed.get(HttpTestingController);
-    httpMock = TestBed.get(HttpClient);
-    authInfoServiceMock = TestBed.get(AuthInfoService);
+    httpClientMock = TestBed.inject(HttpTestingController);
+    httpMock = TestBed.inject(HttpClient);
+    authInfoServiceMock = TestBed.inject(AuthInfoService);
     interceptor = new AuthInterceptor(authInfoServiceMock);
   });
 

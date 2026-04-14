@@ -6,6 +6,8 @@ import { Observable, of } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UsersManagementService } from 'src/app/services/users-management.service';
 import { SortDirective } from 'src/app/shared/directives/sort.directive';
+import { PaginationModule } from 'src/app/shared/pagination/pagination.module';
+import { PaginationModel } from 'src/app/shared/models/pagination.model';
 import {
   UserRole,
   UsersManagementDto,
@@ -33,10 +35,21 @@ export class NavigationServiceMock {
 }
 
 export class UsersManagementMock {
-  public removeUser(id: number) {}
+  public removeUser(id: number) {
+    return of();
+  }
 
   public getAllUsers(): Observable<UsersManagementDto[]> {
     return of(users);
+  }
+
+  public getPaginatedAllUsers(pagination: PaginationModel) {
+    return of({
+      items: users,
+      pageIndex: pagination.pageIndex,
+      pageSize: pagination.pageSize,
+      totalCount: users.length,
+    });
   }
 }
 
@@ -46,6 +59,7 @@ describe('UsersManangmentListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [PaginationModule],
       declarations: [UsersManangmentListComponent, SortDirective],
       providers: [
         { provide: NavigationService, useClass: NavigationServiceMock },

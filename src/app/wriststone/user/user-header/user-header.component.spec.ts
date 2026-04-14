@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { AuthInfoService } from 'src/app/services/auth/auth-info.service';
 
 import { UserHeaderComponent } from './user-header.component';
 
@@ -8,7 +10,16 @@ describe('UserHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserHeaderComponent ]
+      declarations: [ UserHeaderComponent ],
+      providers: [
+        {
+          provide: AuthInfoService,
+          useValue: {
+            currentUser: of(null),
+            hasPermission: () => false,
+          },
+        },
+      ],
     })
     .compileComponents();
   });

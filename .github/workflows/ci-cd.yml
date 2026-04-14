@@ -20,6 +20,7 @@ jobs:
           node-version: 'v24.14.x'
 
       - name: Install Dependencies
+        run: npm install -g @angular/cli
         run: npm install
 
       - name: Build Angular

@@ -19,8 +19,10 @@ jobs:
         with:
           node-version: 'v24.14.x'
 
-      - name: Install Dependencies
+      - name: Install Global
         run: npm install -g @angular/cli
+
+      - name: Install Dependencies
         run: npm install
 
       - name: Build Angular

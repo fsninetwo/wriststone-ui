@@ -91,7 +91,7 @@ export class UsersManangmentAddComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.userId = params.id;
-        this.addForm.setValue({
+        this.addForm.patchValue({
           userRole: this.userRoles?.[0]
         });
       }

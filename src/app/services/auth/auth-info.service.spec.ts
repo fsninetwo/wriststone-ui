@@ -37,7 +37,7 @@ const tokenData: any = {
 
 export class JwtHelperServiceMock {
   public decodeToken(token?: string | undefined): any {
-    return of(tokenData);
+    return tokenData;
   }
   public isTokenExpired(token: string): boolean {
     return false;
@@ -114,7 +114,7 @@ describe("AuthInfoService", () => {
   });
 
   it("setCurrentUser should set correct user", () => {
-    const jwtHelperService = spyOn(service["jwtHelperService"], "decodeToken").and.returnValue(tokenData);
+    const jwtHelperService = spyOn(service["jwtHelperService"] as any, "decodeToken").and.returnValue(tokenData);
     spyOn(service["localStorageService"], "setItem");
     service.setCurrentUser(tokenData);
 
@@ -176,7 +176,7 @@ describe("AuthInfoService", () => {
 
     it("token is expired and should return false", () => {
       const jwtHelperService =
-        spyOn(service["jwtHelperService"], "isTokenExpired").and.returnValue(true);
+        spyOn(service["jwtHelperService"] as any, "isTokenExpired").and.returnValue(true);
 
       const result = service.isAuthorized();
 
@@ -185,11 +185,11 @@ describe("AuthInfoService", () => {
     });
 
     it("token is valid should return true", () => {
-      spyOn(service["jwtHelperService"], "isTokenExpired");
+      const jwtHelperService = spyOn(service["jwtHelperService"] as any, "isTokenExpired").and.returnValue(false);
 
       const result = service.isAuthorized();
 
-      expect(service["jwtHelperService"].isTokenExpired).toHaveBeenCalledWith("test");
+      expect(jwtHelperService).toHaveBeenCalledWith("test");
       expect(result).toBeTrue();
     });
   })
